@@ -1,0 +1,32 @@
+.flex_column_div
+{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 50em;
+    height : 30em;
+
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button
+{
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border: solid;
+    border-color: rgba(100,100,100,0.3);
+    border-radius: 10px;
+
+    font-size: 1.5em;
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-control
+{
+    width: 2px;
+}
