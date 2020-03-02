@@ -15,16 +15,25 @@
     </head>
 
     <body>
-        <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
+            <form>
+                <div class="form-group row">
+                    <label for="enonce" class="col-sm-3 col-form-label">Enoncé</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="enonce" class="form-control" id="enonce">
+                    </div>
+                </div>
 
-            <a class="indexButton" href="#">Créer un compte </a>
-            <a class="indexButton" href="#">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
-
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                </div>
+            </form>
         </div>
+
 
     </body>
 

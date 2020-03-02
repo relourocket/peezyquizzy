@@ -18,11 +18,12 @@
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
+            <h1>Wesh Admin</h1>
 
-            <a class="indexButton" href="#">Créer un compte </a>
-            <a class="indexButton" href="#">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
+            <a class="indexButton" href="#">Créer une Question </a>
+            <a class="indexButton" href="#">Connexion un Quiz</a>
+            <a class="indexButton" href="#">Gérer un Quiz</a>
+            <a class="indexButton" href="#">Gérer les Utilisateurs</a>
 
         </div>
 

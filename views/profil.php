@@ -17,12 +17,18 @@
     <body>
         <?php include("../includes/navbar.php"); ?>
 
-        <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
+        <h1>Username</h1>
 
-            <a class="indexButton" href="#">Créer un compte </a>
-            <a class="indexButton" href="#">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
+        <div class="choixConteneur">
+            <a class="scoreQuiz" href="#">
+                <div>Titre quiz </div>
+                <div>Score quiz </div>
+            </a>
+            <a class="scoreQuiz" href="#">
+                <div>Titre quiz </div>
+                <div>Score quiz </div>
+            </a>
+
 
         </div>
 

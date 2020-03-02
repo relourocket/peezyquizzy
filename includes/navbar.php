@@ -16,10 +16,12 @@
 
     <body>
         <nav class="navbar flex_nav navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">QueezyPeezy</a>
+            <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
             <a class="navbar-brand" href="#">QueezyPeezy</a>
 
 
         </nav>
 
     </body>
+
+</html>
