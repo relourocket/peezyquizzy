@@ -1,0 +1,169 @@
+.flex_column_div
+{
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 3em;
+    width: 70em;
+    height : 30em;
+
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.choixConteneur
+{
+    border: solid;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100em;
+    margin: auto;
+    margin-top: 3em;
+
+    justify-content: space-around;
+
+}
+
+.descriptionConteneur
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 30em;
+    height: 12em;
+    margin: auto;
+    margin-top: 3em;
+
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.descriptionConteneur div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center;
+    width: 17em;
+}
+
+.indexButton
+{
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border: solid;
+    border-color: rgba(100,100,100,0.3);
+    border-radius: 10px;
+
+    font-size: 1.5em;
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bigButton
+{
+    width: 15em;
+    height: 4em;
+    margin-top: 1em;
+    font-size: 3em;
+}
+
+.themeButton
+{
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-radius: 0.3em;
+    height: 3em;
+    width: 10em;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    font-size: 3em;
+    color: rgb(100,100,100);
+}
+
+.user
+{
+    display: flex;
+    flex-direction: column;
+
+    width: 10em;
+    height: 6em;
+    justify-content: space-around;
+}
+
+.quizButton, .scoreQuiz
+{
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-radius: 0.3em;
+    height: 1.5em;
+    width: 23em;
+    margin-top: 1em;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+
+    font-size: 3em;
+    color: rgb(100,100,100);
+}
+
+.startButton, .rejouerButton, .autreQuizButton
+{
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-radius: 0.3em;
+    height: 1.7em;
+    width: 9em;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+
+    font-size: 1.2em;
+    color: rgb(100,100,100);
+}
+
+.rejouerButton, .autreQuizButton
+{
+        font-size: 2em;
+        margin-top: 1em;
+}
+
+.gererButton
+{
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-radius: 0.3em;
+    height: 1.7em;
+    width: 4em;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+
+    font-size: 1.2em;
+    color: rgb(100,100,100);
+}
+
+
+.indexButton:active, .indexButton:hover,
+.themeButton:active, .themeButton:hover,
+.quizButton:active, .quizButton:hover,
+.gererButton:hover, .gererButton:active,
+.startButton:hover, .startButton:active,
+.scoreQuiz:hover, .scoreQuiz:active,
+.rejouerButton:hover, .rejouerButton:active,
+.autreQuizButton:hover, .autreQuizButton:active
+{
+    text-decoration: none;
+}

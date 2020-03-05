@@ -18,11 +18,21 @@
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
 
-            <a class="indexButton" href="#">Créer un compte </a>
-            <a class="indexButton" href="#">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
+            <!-- Ici je crée un form pour faire de la navigation avec les boutons
+        C'est dégueux mais comme je connais pas javascript j'ai préféré faire ça :)) -->
+        
+            <form action="index.php">
+                <button class="bigButton" >
+                    Gérer
+                </button>
+            </form>
+
+            <form action="index.php">
+                <button class="bigButton">
+                    Jouer
+                </button>
+            </form>
 
         </div>
 

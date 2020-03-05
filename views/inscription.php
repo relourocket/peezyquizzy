@@ -18,11 +18,26 @@
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
+            <h1>Bienvenue à toi. Inscris-toi pour jouer !</h1>
 
-            <a class="indexButton" href="#">Créer un compte </a>
-            <a class="indexButton" href="#">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
+            <form method="POST" action="#">
+                <div class="form-group row">
+                    <label for="login">Login :</label>
+                    <input type="text" name="login" id="login" class="form-control">
+                </div>
+
+                <div class="form-group row">
+                    <label for="mdp">Mot de passe : </label>
+                    <input type="text" name="mdp" id="mdp" class="form-control">
+                </div>
+
+                <div class="form-group row">
+                    <label for="mdpConfirm">Confirmation du mot de passe : </label>
+                    <input type="text" name="mdpConfirm" id="mdpConfirm" class="form-control">
+                </div>
+
+                <button type="submit" class="btn">Confirmer </button>
+            </form>
 
         </div>
 
