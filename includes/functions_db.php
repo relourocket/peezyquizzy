@@ -88,3 +88,60 @@ function get_all_themes () {
         die("No database found...");
     }
 }
+
+function get_all_quizz_per_theme ($themeid) {
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("SELECT * FROM quizz WHERE quizz_theme = ?");
+        $stmt->bind_param("s", $theme);
+        $theme = $themeid;
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $themes = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        return $themes;
+
+    } else {
+        die("No database found...");
+    }
+}
+
+function get_quizz_questions ($quizzid) {
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("select * from quizz, question, contain where quizz.quizz_id = ? and quizz.quizz_id = contain.quizz_id and question.question_id = contain.question_id");
+        $stmt->bind_param("s", $quizz);
+        $quizz = $quizzid;
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $questions = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        return $questions;
+
+    } else {
+        die("No database found...");
+    }
+}
+
+function get_answers ($questionid) {
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("select * from question, answer, belongs where question.question_id = ? and question.question_id = belongs.question_id and answer.answer_id = belongs.answer_id");
+        $stmt->bind_param("s", $question);
+        $question = $questionid;
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $answers = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        return $answers;
+
+    } else {
+        die("No database found...");
+    }
+}

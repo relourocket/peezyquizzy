@@ -5,16 +5,31 @@
     <?php include "../includes/head.php"?>
 
     <body>
-        <?php include("../includes/navbar.php"); ?>
+        <?php include("../includes/navbar.php");
+              require_once "../includes/functions_db.php";
+        ?>
+
+        <?php
+        if (isset($_GET['id'])) {
+            $quizz = get_all_quizz_per_theme($_GET['id']);
+        }
+        ?>
 
         <div class="choixConteneur">
-            <?php include("../includes/quiz.php"); ?>
-            <?php include("../includes/quiz.php"); ?>
-            <?php include("../includes/quiz.php"); ?>
-            <?php include("../includes/quiz.php"); ?>
-            <?php include("../includes/quiz.php"); ?>
-
-
+            <?php
+                if (count($quizz) > 0) {
+                    $i = 0;
+                    foreach ($quizz as $key => $value) {
+                        echo "<a class = 'quizButton' href='descriptionQuiz.php?id=" . ($i + 1) . "'><h1 class='quizTitre'>" . utf8_encode($quizz[$i][2]) . "</h1>" .
+                            "<br><h3 class='quizDescription'>" . utf8_encode($quizz[$i][4]) . "</h3>" .
+                            "</a>";
+                        $i++;
+                    }
+                }
+                else {
+                    echo "Il n'y a pas encore de quizz dans cette catégorie... ";
+                }
+            ?>
         </div>
 
     </body>

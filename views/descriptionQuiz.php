@@ -13,7 +13,7 @@
 
             <div>
                 <a class="gererButton" href="#">Gérer</a>
-                <a class="startButton" href="#">Commencer</a>
+               <?php echo "<a class='startButton' href='jouerQuiz.php?id=" . $_GET['id'] . "'>Commencer</a>" ?>
             </div>
 
         </div>

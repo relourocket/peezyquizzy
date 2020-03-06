@@ -29,7 +29,7 @@
             <?php
             $i = 0;
             foreach ($themes as $key => $value) {
-                echo "<a class = 'themeButton' href='#'>" . utf8_encode($themes[$i][1]) .
+                echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>" . utf8_encode($themes[$i][1]) .
                     "<br>" . utf8_encode($themes[$i][2]) .
                     "<br><img src = '.." . utf8_encode($themes[$i][3]) . "'/>" .
                     "</a>";

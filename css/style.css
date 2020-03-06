@@ -167,3 +167,11 @@
 {
     text-decoration: none;
 }
+
+.descriptionConteneur {
+    display: block;
+}
+
+.quizForm {
+    margin-top: 30px;
+}
