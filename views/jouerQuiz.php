@@ -2,26 +2,46 @@
 
 <html>
 
-    <head>
-        <meta charset="utf-8"/>
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/style.css">
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-    </head>
+    <?php include "../includes/head.php"?>
 
     <body>
-        <?php include("../includes/navbar.php"); ?>
+        <?php include("../includes/navbar.php");
+              require_once "../includes/functions_db.php";
+        ?>
+
+        <?php
+        if (isset($_GET['id'])) {
+            $questions = get_quizz_questions($_GET['id']);
+        }
+        ?>
 
         <div class="descriptionConteneur">
-            <h1>Titre</h1>
-            <div>Description : blablablablablabla </div>
+           <?php  echo "<h1>" . utf8_encode($questions[0][2]) . "</h1>
+            <div>Description : " . utf8_encode($questions[0][4]) . " </div>" ?>
 
-            <form method="post" action="#">
+            <form method="post" action="#" class="quizForm">
+
+                <?php
+                    $i = 0;
+                    foreach ($questions as $key => $value) {
+                    $answers = get_answers($i+1);
+                    echo "<label>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
+                    if (strcmp($answers[0][1], "libre") == 0) {
+                        echo "<input type='text'>";
+                    }
+                    else if (strcmp($answers[0][1], "radio") == 0) {
+                        $j = 0;
+                        foreach ($answers as $key2 => $value2) {
+                            echo "<div>
+                                      <input type='radio' name='" . $j . "' value= '" . utf8_encode($answers[$j][3]) . "'>
+                                      <label for= '". $j ."'>". utf8_encode($answers[$j][4]) ."</label>
+                                </div>";
+                            $j++;
+                        }
+                    }
+                    $i++;
+                    }
+                ?>
 
                 <button class="btn" type="submit">Envoyer </button>
 
