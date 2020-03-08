@@ -9,6 +9,7 @@
     <body>
         <?php
         require_once "../includes/functions_db.php";
+
         if (isset($_POST['login']) && isset($_POST['mdp'])) {
             if (!pseudo_exists($_POST['login'])) {
                 echo "Pseudo existe pas";
@@ -16,6 +17,9 @@
             }
             else if(!check_logs($_POST['login'], $_POST['mdp'])) {
                 header('location: ./connexion.php?error=1');
+            }
+            else if(is_admin($_POST['login'])){
+                header("location: ./choixGererJouer.php");
             }
         }
 

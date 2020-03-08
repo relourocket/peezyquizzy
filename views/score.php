@@ -20,7 +20,7 @@
                 </tr>
             </table>
             <div>
-                <a class="rejouerButton" href="descriptionQuiz.php">Rejouer</a>
+                <a class="rejouerButton" href="descriptionQuiz.php?id=#">Rejouer</a>
                 <a class="autreQuizButton" href="choixTheme.php">Faire un autre Quiz</a>
             </div>
 

@@ -67,10 +67,17 @@
 
 .bigButton
 {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
     width: 15em;
     height: 4em;
     margin-top: 1em;
     font-size: 3em;
+    color: rgb(100,100,100);
+    border: solid;
+    border-color: rgb(80,80,80);
 }
 
 .themeButton
@@ -155,7 +162,7 @@
     color: rgb(100,100,100);
 }
 
-
+.bigButton:active, .bigButton:hover,
 .indexButton:active, .indexButton:hover,
 .themeButton:active, .themeButton:hover,
 .quizButton:active, .quizButton:hover,

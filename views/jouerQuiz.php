@@ -19,24 +19,26 @@
            <?php  echo "<h1>" . utf8_encode($questions[0][2]) . "</h1>
             <div>Description : " . utf8_encode($questions[0][4]) . " </div>" ?>
 
-            <form method="post" action="#" class="quizForm">
+            <form method="post" action="./score.php" class="quizForm">
 
                 <?php
                     $i = 0;
+                    $indexRadio = 0; //index pour répertorier les radios correctement
                     foreach ($questions as $key => $value) {
                     $answers = get_answers($i+1);
-                    echo "<label>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
+                    echo "<label for='question" .$i ."'>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
                     if (strcmp($answers[0][1], "libre") == 0) {
-                        echo "<input type='text'>";
+                        echo "<input type='text' id='question" .$i ."'>";
                     }
                     else if (strcmp($answers[0][1], "radio") == 0) {
                         $j = 0;
                         foreach ($answers as $key2 => $value2) {
                             echo "<div>
-                                      <input type='radio' name='" . $j . "' value= '" . utf8_encode($answers[$j][3]) . "'>
-                                      <label for= '". $j ."'>". utf8_encode($answers[$j][4]) ."</label>
+                                      <input type='radio' name='" . $i . "' id='rep" .$indexRadio ."'value= '" . utf8_encode($answers[$j][3]) . "'>
+                                      <label for= 'rep" .$indexRadio ."'>". utf8_encode($answers[$j][4]) ."</label>
                                 </div>";
                             $j++;
+                            $indexRadio++;
                         }
                     }
                     $i++;

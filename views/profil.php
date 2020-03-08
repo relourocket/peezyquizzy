@@ -10,11 +10,11 @@
         <h1>Username</h1>
 
         <div class="choixConteneur">
-            <a class="scoreQuiz" href="#">
+            <a class="scoreQuiz" href="./descriptionQuiz.php?id=#">
                 <div>Titre quiz </div>
                 <div>Score quiz </div>
             </a>
-            <a class="scoreQuiz" href="#">
+            <a class="scoreQuiz" href="./descriptionQuiz.php?id=#">
                 <div>Titre quiz </div>
                 <div>Score quiz </div>
             </a>
