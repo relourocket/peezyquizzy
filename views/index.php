@@ -7,6 +7,9 @@
         unset($_SESSION["isAdmin"]);
         header("location: ./index.php");
     }
+    else if(isset($_SESSION["login"]) && isset($_SESSION["isAdmin"])){
+        header("location: ./choixTheme.php");
+    }
 ?>
 
 <html>

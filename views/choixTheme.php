@@ -11,6 +11,9 @@
         <?php
         require_once "../includes/functions_db.php";
 
+
+
+        //traitement lors de la connexion au compte
         if (isset($_POST['login']) && isset($_POST['mdp'])) {
             if (!pseudo_exists($_POST['login'])) {
                 echo "Pseudo existe pas";

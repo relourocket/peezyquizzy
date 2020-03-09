@@ -11,7 +11,7 @@
         <div class="flex_column_div">
 
             <a class=bigButton href="./accueilAdmin.php">Gérer </a>
-            <a class=bigButton href="./choixTheme.php">Jouer </a>
+            <a class=bigButton href="./choixTheme.php?jouer=true">Jouer </a>
 
         </div>
 
