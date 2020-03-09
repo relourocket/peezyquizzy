@@ -1,5 +1,13 @@
 <!doctype html>
-<?php session_start();?>
+<?php
+    session_start();
+
+    if(isset($_GET["logout"])){
+        unset($_SESSION["login"]);
+        unset($_SESSION["isAdmin"]);
+        header("location: ./index.php");
+    }
+?>
 
 <html>
 

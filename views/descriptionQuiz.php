@@ -13,7 +13,13 @@
             <div>Description : blablablablablabla </div>
 
             <div>
-                <a class="gererButton" href="./gererQuiz.php">Gérer</a>
+                <?php
+                    if($_SESSION["isAdmin"]==true){
+                        echo "<a class='gererButton' href='./gererQuiz.php'>Gérer</a>";
+                    }
+                ?>
+
+
                <?php echo "<a class='startButton' href='jouerQuiz.php?id=" . $_GET['id'] . "'>Commencer</a>" ?>
             </div>
 

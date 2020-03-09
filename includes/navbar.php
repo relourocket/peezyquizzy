@@ -23,7 +23,11 @@
                 <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
 
                 <div class="dropdown navbar-brand">
-                      <?php include("../includes/navbarDropdown.php") ; ?>
+                    <?php
+                        if(isset($_SESSION["login"])){
+                            include("../includes/navbarDropdown.php") ;
+                        }
+                    ?>
                 </div>
             </div>
 

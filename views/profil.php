@@ -8,7 +8,7 @@
     <body>
         <?php include("../includes/navbar.php"); ?>
 
-        <h1>Username</h1>
+        <h1><?php if(isset($_SESSION["login"])) echo $_SESSION["login"];?></h1>
 
         <div class="choixConteneur">
             <a class="scoreQuiz" href="./descriptionQuiz.php?id=#">
