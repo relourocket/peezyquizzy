@@ -16,7 +16,7 @@
 
     <body>
         <nav class="navbar flex_nav navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
+            <a class="navbar-brand" href="../views/choixTheme.php">QueezyPeezy</a>
             <a class="navbar-brand" href="#">QueezyPeezy</a>
 
 
