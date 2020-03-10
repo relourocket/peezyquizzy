@@ -13,13 +13,13 @@
         <div class="flex_column_div">
 
             <?php
-            if (isset($_POST)) {
+            if (isset($_POST) && isset($_SESSION['login'])) {
                 $score = get_score ($_POST);
 
-                // TODO : temps + pseudo (quand yaura variable session)
-                save_score ($score, 0, $_POST['idquizz'], 'agass');
-                $best_score = get_best_score('agass');
-                $best_time = get_best_time('agass');
+                // TODO : temps
+                save_score ($score, 0, $_POST['idquizz'], $_SESSION['login']);
+                $best_score = get_best_score($_SESSION['login']);
+                $best_time = get_best_time($_SESSION['login']);
             }
             else {
                 echo "Il n'y a pas de réponses enregistrées pour ce quizz";

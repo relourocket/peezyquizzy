@@ -20,7 +20,7 @@
 
             <div class="flex_nav">
                 <div id="navigation">
-                    <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
+                    <a class="navbar-brand" href="choixTheme.php">QueezyPeezy</a>
 
                     <?php
                         if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]==true){
@@ -29,8 +29,6 @@
                     ?>
 
                 </div>
-
-                <a class="navbar-brand" href="../views/choixTheme.php">QueezyPeezy</a>
 
                 <div class="dropdown navbar-brand">
                     <?php
