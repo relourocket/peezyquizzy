@@ -20,7 +20,7 @@
            <?php  echo "<h1>" . utf8_encode($questions[0][2]) . "</h1>
             <div>Description : " . utf8_encode($questions[0][4]) . " </div>" ?>
 
-            <form method="post" action="./score.php" class="quizForm">
+            <form method="post" action="score.php" class="quizForm">
 
                 <?php
                     $i = 0;
@@ -29,14 +29,14 @@
                     $answers = get_answers($i+1);
                     echo "<label for='question" .$i ."'>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
                     if (strcmp($answers[0][1], "libre") == 0) {
-                        echo "<input type='text' id='question" .$i ."'>";
+                        echo "<input type='text' name='". ($i+1) ."'>";
                     }
                     else if (strcmp($answers[0][1], "radio") == 0) {
                         $j = 0;
                         foreach ($answers as $key2 => $value2) {
                             echo "<div>
-                                      <input type='radio' name='" . $i . "' id='rep" .$indexRadio ."'value= '" . utf8_encode($answers[$j][3]) . "'>
-                                      <label for= 'rep" .$indexRadio ."'>". utf8_encode($answers[$j][4]) ."</label>
+                                      <input type='radio' name='" . ($i+1) . "' value= '" . utf8_encode($answers[$j][4]) . "'>
+                                      <label for= '". $j ."'>". utf8_encode($answers[$j][4]) ."</label>
                                 </div>";
                             $j++;
                             $indexRadio++;
@@ -44,9 +44,11 @@
                     }
                     $i++;
                     }
+
+                    echo "<input type='hidden' name='idquizz' value='" . $_GET['id'] . "'>";
                 ?>
 
-                <button class="btn" type="submit">Envoyer </button>
+                <button class="btn" type="submit">Envoyer les réponses !</button>
 
             </form>
 

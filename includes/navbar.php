@@ -16,11 +16,12 @@
     </head>
 
     <body>
+
         <nav class="navbar navbar-light bg-light">
 
             <div class="flex_nav">
 
-                <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
+                <a class="navbar-brand" href="../views/choixTheme.php">QueezyPeezy</a>
 
                 <div class="dropdown navbar-brand">
                     <?php
@@ -30,7 +31,6 @@
                     ?>
                 </div>
             </div>
-
 
         </nav>
 

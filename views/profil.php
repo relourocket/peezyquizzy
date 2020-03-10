@@ -6,20 +6,30 @@
     <?php include "../includes/head.php"?>
 
     <body>
-        <?php include("../includes/navbar.php"); ?>
+        <?php include("../includes/navbar.php");
+              require_once "../includes/functions_db.php";
+        ?>
 
         <h1><?php if(isset($_SESSION["login"])) echo $_SESSION["login"];?></h1>
 
-        <div class="choixConteneur">
-            <a class="scoreQuiz" href="./descriptionQuiz.php?id=#">
-                <div>Titre quiz </div>
-                <div>Score quiz </div>
-            </a>
-            <a class="scoreQuiz" href="./descriptionQuiz.php?id=#">
-                <div>Titre quiz </div>
-                <div>Score quiz </div>
-            </a>
+        <?php
+        // TODO : pseudo quand yaura variable de session !
+        $scores = get_all_score('agass');
+        ?>
 
+
+        <div class="choixConteneur">
+            <?php
+                $i = 0;
+                foreach ($scores as $key => $value) {
+                    echo "
+                        <a class='scoreQuiz' href='descriptionQuiz.php?id=". $scores[$i][0] ."'>
+                            <div>" . utf8_encode($scores[$i][1]) ."</div>
+                            <div>" . $scores[$i][2] . "</div>
+                        </a> ";
+                    $i++;
+                }
+            ?>
 
         </div>
 
