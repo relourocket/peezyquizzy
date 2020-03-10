@@ -5,5 +5,12 @@
     justify-content: space-around;
 
     margin:auto;
-    width: 120em;
+    width: 150em;
+
+}
+
+#navigation{
+    display: flex;
+    justify-content: space-around;
+    width: 20em;
 }
