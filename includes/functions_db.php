@@ -171,3 +171,39 @@ function get_answers ($questionid) {
         die("No database found...");
     }
 }
+
+function get_all_users(){
+    $sql = connect_db();
+    if($sql!=null){
+        $stmt = $sql->prepare("select * from users");
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $users = $res->fetch_all();
+        $stmt->close();
+
+        return $users;
+    }
+    else{
+        die("No database found");
+    }
+}
+
+function update_user_status($id, $status){
+    //affectation nouvelle valeur du statut
+    if($status==1) $newStatus = 0;
+    elseif($status==0) $newStatus = 1;
+    else return false;
+
+    //envoie requête
+    $sql = connect_db();
+    if($sql!=null){
+        $stmt = $sql->prepare("update users set user_isadmin=? where user_id=?");
+        $stmt->bind_param("ii", $newStatus, $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    else{
+        die("No database found");
+    }
+}

@@ -16,11 +16,20 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-expand navbar-light bg-light">
 
             <div class="flex_nav">
+                <div id="navigation">
+                    <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
 
-                <a class="navbar-brand" href="../views/index.php">QueezyPeezy</a>
+                    <?php
+                        if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]==true){
+                            include "../includes/navbarGererJouer.php";
+                        }
+                    ?>
+
+                </div>
+
 
                 <div class="dropdown navbar-brand">
                     <?php
