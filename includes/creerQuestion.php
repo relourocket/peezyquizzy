@@ -30,8 +30,8 @@
                     <div class="col-sm-9">
                         <select class="form-control" id="typeQuestion">
                             <option selected>Type de Question </option>
-                            <option value="#">QCM </option>
-                            <option value="#">Réponse ouverte</option>
+                            <option value="qcm">QCM </option>
+                            <option value="open">Réponse ouverte</option>
                         </select>
 
                     </div>

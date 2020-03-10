@@ -1,4 +1,13 @@
 <!doctype html>
+<?php
+    session_start();
+
+    if(isset($_GET["logout"])){
+        unset($_SESSION["login"]);
+        unset($_SESSION["isAdmin"]);
+        header("location: ./index.php");
+    }
+?>
 
 <html>
 
@@ -13,7 +22,7 @@
 
             <a class="indexButton" href="./inscription.php">Créer un compte </a>
             <a class="indexButton" href="./connexion.php">Connexion Utilisateur</a>
-            <a class="indexButton" href="#">Connexion Admin</a>
+            <a class="indexButton" href="./connexion.php">Connexion Admin</a>
 
         </div>
 

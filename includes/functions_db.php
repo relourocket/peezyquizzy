@@ -72,6 +72,32 @@ function signin ($login, $password) {
     }
 }
 
+function is_admin($login){
+
+        $sql = connect_db();
+        if($sql != null){
+            $stmt = $sql->prepare("SELECT * FROM users WHERE user_login=? AND user_isadmin=1");
+            $stmt->bind_param("s", $id);
+            $id = $login;
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $logs = $result->fetch_all();
+            $stmt->close();
+
+            if(!empty($logs)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        else {
+            die("No database found...");
+        }
+
+}
+
 function get_all_themes () {
     $sql = connect_db();
     if ($sql != null) {

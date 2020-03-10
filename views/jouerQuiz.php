@@ -1,4 +1,5 @@
 <!doctype html>
+<?php session_start();?>
 
 <html>
 
@@ -23,9 +24,10 @@
 
                 <?php
                     $i = 0;
+                    $indexRadio = 0; //index pour répertorier les radios correctement
                     foreach ($questions as $key => $value) {
                     $answers = get_answers($i+1);
-                    echo "<label>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
+                    echo "<label for='question" .$i ."'>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
                     if (strcmp($answers[0][1], "libre") == 0) {
                         echo "<input type='text' name='". ($i+1) ."'>";
                     }
@@ -37,6 +39,7 @@
                                       <label for= '". $j ."'>". utf8_encode($answers[$j][4]) ."</label>
                                 </div>";
                             $j++;
+                            $indexRadio++;
                         }
                     }
                     $i++;

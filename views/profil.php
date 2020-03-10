@@ -1,4 +1,5 @@
 <!doctype html>
+<?php session_start();?>
 
 <html>
 
@@ -9,7 +10,7 @@
               require_once "../includes/functions_db.php";
         ?>
 
-        <h1>Username</h1>
+        <h1><?php if(isset($_SESSION["login"])) echo $_SESSION["login"];?></h1>
 
         <?php
         // TODO : pseudo quand yaura variable de session !
@@ -29,7 +30,6 @@
                     $i++;
                 }
             ?>
-
 
         </div>
 
