@@ -328,3 +328,51 @@ function update_user_status($id, $status){
         die("No database found");
     }
 }
+
+function save_question ($enonce, $type, $rep_libre, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm8) {
+    $sql = connect_db();
+    if ($sql != null) {
+
+        // Pour une réponse libre
+        if (strcmp($type, "libre") == 0) {
+
+            // save question
+            $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $type, $enonce);
+            $stmt->execute();
+
+            // save answer
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, 1)");
+            $stmt->bind_param("s", $rep_libre);
+            $stmt->execute();
+
+            // link question and answer
+
+            // get last question inserted
+            $stmt = $sql->prepare("select max(question_id) from question");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $question = $res->fetch_all();
+            $question_id = $question[0][0];
+
+            // get last answer inserted
+            $stmt = $sql->prepare("select max(answer_id) from answer");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $answer = $res->fetch_all();
+            $answer_id = $answer[0][0];
+
+            $stmt = $sql->prepare("INSERT INTO belongs VALUES (?, ?)");
+            $stmt->bind_param("ss", $question_id, $answer_id);
+            $stmt->execute();
+
+            $stmt->close();
+        }
+        else if (strcmp($type, "radio")) {
+            // TODO
+        }
+        
+    } else {
+        die("No database found...");
+    }
+}
