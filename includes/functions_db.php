@@ -191,6 +191,7 @@ function get_score ($answers) {
 
         foreach ($answers as $answer) {
             if ($i < count($answers)-1) {
+                //strcmp() renvoie 0 si les string sont égales
                 if (strcmp(strtolower($answer), strtolower($awnswers_true[$i][1])) == 0) {
                     $score++;
                 }
