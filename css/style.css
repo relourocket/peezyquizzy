@@ -30,7 +30,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     width: 30em;
-    height: 12em;
+
     margin: auto;
     margin-top: 3em;
 
@@ -158,6 +158,14 @@
 
     font-size: 1.2em;
     color: rgb(100,100,100);
+}
+
+#addQuestion
+{
+    display: flex;
+    flex-direction: column;
+    width: 25em;
+    border:solid;
 }
 
 .bigButton:active, .bigButton:hover,

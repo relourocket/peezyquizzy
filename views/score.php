@@ -6,6 +6,7 @@
     <?php include "../includes/head.php"?>
 
     <body>
+
         <?php include("../includes/navbar.php");
               require_once "../includes/functions_db.php";
         ?>

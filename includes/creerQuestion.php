@@ -2,9 +2,11 @@
 
 <html>
 
+
     <?php include "head.php";
           require_once "functions_db.php"
     ?>
+
 
     <body>
 

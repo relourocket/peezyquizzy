@@ -8,3 +8,5 @@ function check_confirm_password ($password, $confirm_password) {
         return false;
     }
 }
+
+?>
