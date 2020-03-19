@@ -6,8 +6,6 @@
     margin: auto;
     margin-top: 3em;
     width: 70em;
-    height : 30em;
-
     text-align: center;
     justify-content: space-around;
     align-items: center;
@@ -189,4 +187,16 @@
 
 .quizForm {
     margin-top: 30px;
+}
+
+.creer_question {
+    margin: 30px;
+}
+
+#libre, #qcm {
+    display: none;
+}
+
+.show {
+    display: block !important;
 }

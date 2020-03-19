@@ -329,3 +329,130 @@ function update_user_status($id, $status){
         die("No database found");
     }
 }
+
+function save_question ($enonce, $type, $rep_libre, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm8, $juste) {
+    $sql = connect_db();
+    if ($sql != null) {
+
+        // Pour une réponse libre
+        if (strcmp($type, "libre") == 0) {
+
+            // save question
+            $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $type, $enonce);
+            $stmt->execute();
+
+            // save answer
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, 1)");
+            $stmt->bind_param("s", $rep_libre);
+            $stmt->execute();
+
+            // link question and answer
+
+            // get last question inserted
+            $stmt = $sql->prepare("select max(question_id) from question");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $question = $res->fetch_all();
+            $question_id = $question[0][0];
+
+            // get last answer inserted
+            $stmt = $sql->prepare("select max(answer_id) from answer");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $answer = $res->fetch_all();
+            $answer_id = $answer[0][0];
+
+            $stmt = $sql->prepare("INSERT INTO belongs VALUES (?, ?)");
+            $stmt->bind_param("ss", $question_id, $answer_id);
+            $stmt->execute();
+
+            $stmt->close();
+        }
+
+        // Pour un QCM
+        else if (strcmp($type, "radio") == 0) {
+
+            // Insertion question
+            $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $type, $enonce);
+            $stmt->execute();
+
+            // Insertion réponse 1
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm1, $good);
+            $good = $juste==1?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 2
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm2, $good);
+            $good = $juste==2?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 3
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm3, $good);
+            $good = $juste==3?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 4
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm4, $good);
+            $good = $juste==4?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 5
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm5, $good);
+            $good = $juste==5?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 6
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm6, $good);
+            $good = $juste==6?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 7
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm7, $good);
+            $good = $juste==7?1:0;
+            $stmt->execute();
+
+            // Insertion réponse 8
+            $stmt = $sql->prepare("INSERT INTO answer VALUES (0, ?, ?)");
+            $stmt->bind_param("ss", $qcm8, $good);
+            $good = $juste==8?1:0;
+            $stmt->execute();
+
+            // Link question and answers
+
+            // get last question inserted
+            $stmt = $sql->prepare("select max(question_id) from question");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $question = $res->fetch_all();
+            $question_id = $question[0][0];
+
+            // get last answer inserted
+            $stmt = $sql->prepare("select max(answer_id) from answer");
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $answer = $res->fetch_all();
+            $answer_id = $answer[0][0];
+
+            for ($i = $answer_id; $i>$answer_id-8; $i--) {
+                $stmt = $sql->prepare("INSERT INTO belongs VALUES (?, ?)");
+                $stmt->bind_param("ss", $question_id, $i);
+                $stmt->execute();
+            }
+
+            $stmt->close();
+
+        }
+
+    } else {
+        die("No database found...");
+    }
+}
