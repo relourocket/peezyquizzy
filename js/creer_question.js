@@ -1,32 +1,15 @@
-function select() {
-    var type = document.getElementById('typeQuestion');
-    var type_value = type.options[type.selectedIndex].value;
+function select(questionID){
+    let type = $("#typeQuestion".concat(questionID));
 
-    if (type_value == "radio") {
-        document.getElementById('qcm').classList.add('show');
-        if (document.getElementById('libre').classList.contains('show')) {
-            document.getElementById('libre').classList.remove('show');
-        }
-    }
-    else if (type_value == "libre") {
-        document.getElementById('libre').classList.add('show');
-        if (document.getElementById('qcm').classList.contains('show')) {
-            document.getElementById('qcm').classList.remove('show');
-        }
+    switch(type.val()){
+        case "libre":
+            $("#".concat(questionID)).append(insertLibre(questionID));
+            $("#qcm".concat(questionID)).remove();
+            break;
+
+        case "qcm":
+            $("#".concat(questionID)).append(insertQcm(questionID, 8));
+            $("#libre".concat(questionID)).remove();
+            break;
     }
 }
-
-/*for (var i = 0; i < buttons.length; i++) {
-    var button = buttons[i];
-    button.addEventListener('click', function() {
-        var target = this.getAttribute('data-next');
-        for (var j = 0; j < questions.length; j++) {
-            var question = questions[j];
-            if (question.id == target) {
-                question.classList.add('show');
-            } else if (question.classList.contains('show')) {
-                question.classList.remove('show');
-            }
-        }
-    });
-}*/
