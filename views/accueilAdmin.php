@@ -3,7 +3,10 @@
 
 <html>
 
-    <?php include "../includes/head.php"?>
+    <?php
+        include "../includes/head.php";
+        include "../includes/functions_db.php";
+    ?>
     <?php
         //TO DO : fonctions pour insérer en bdd questionnaire/questions/rep
 
@@ -21,7 +24,8 @@
       //
       //   }
 
-      if(isset($_POST)) echo var_dump($_POST);
+      // if(isset($_POST)) echo var_dump($_POST);
+      if(isset($_FILES)) echo var_dump($_FILES);
      ?>
 
     <body>

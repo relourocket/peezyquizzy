@@ -1,3 +1,71 @@
+function insertCreateTheme(){
+    //renvoie un div contenant les champs pour créer un thème
+
+
+    // conteneur de la création de thème
+    let createThemeDiv = document.createElement("div");
+    createThemeDiv.id = "createTheme";
+
+    // nom du thème
+    let nomThemeDiv = document.createElement("div");
+    nomThemeDiv.className = "form-group row";
+
+    let nomThemeLabel = document.createElement("label");
+    nomThemeLabel.className = "col-form-label col-sm-3";
+    nomThemeLabel.setAttribute("for", "nomTheme");
+    nomThemeLabel.textContent = "Nom du thème";
+
+    let nomThemeInput = document.createElement("input");
+    nomThemeInput.id = "nomTheme";
+    nomThemeInput.className = "form-control col-sm-9";
+    nomThemeInput.setAttribute("name", "nomTheme");
+    nomThemeInput.required = true;
+
+    nomThemeDiv.append(nomThemeLabel);
+    nomThemeDiv.append(nomThemeInput);
+
+    // description
+    let descrThemeDiv = document.createElement("div");
+    descrThemeDiv.className = "form-group row";
+
+    let descrThemeLabel = document.createElement("label");
+    descrThemeLabel.className = "col-form-label col-sm-3";
+    descrThemeLabel.setAttribute("for", "descrTheme");
+    descrThemeLabel.textContent = "Description";
+
+    let descrThemeInput = document.createElement("input");
+    descrThemeInput.id = "descrTheme";
+    descrThemeInput.className = "form-control col-sm-9";
+    descrThemeInput.setAttribute("name", "descrTheme");
+    descrThemeInput.required = true;
+
+    descrThemeDiv.append(descrThemeLabel);
+    descrThemeDiv.append(descrThemeInput);
+
+    // image
+    let imgThemeDiv = document.createElement("div");
+    imgThemeDiv.className = "form-group row";
+
+    let imgThemeLabel = document.createElement("label");
+    imgThemeLabel.className = "col-form-label col-sm-3";
+    imgThemeLabel.textContent = "Image illustrative";
+
+    let imgThemeInput = document.createElement("input");
+    imgThemeInput.className = "col-sm-9";
+    imgThemeInput.setAttribute("type", "file");
+    imgThemeInput.setAttribute("name", "imgTheme");
+
+    imgThemeDiv.append(imgThemeLabel);
+    imgThemeDiv.append(imgThemeInput);
+
+    // insertion
+    createThemeDiv.append(nomThemeDiv);
+    createThemeDiv.append(descrThemeDiv);
+    createThemeDiv.append(imgThemeDiv);
+
+    return createThemeDiv;
+}
+
 function insertQuestion(){
     // Insert une question à l'appel d'un onclick
 
@@ -13,7 +81,7 @@ function insertQuestion(){
     questionDiv.append(newQuestionDiv);
 
     insertEnonce(newQuestionDiv, questionID);
-    insertTypeSelection(newQuestionDiv, questionID);
+    insertTypeQuestionSelection(newQuestionDiv, questionID);
 
     //création du bouton pour remove la question
     let removeBtn = document.createElement("button");
@@ -55,7 +123,7 @@ function insertEnonce(newQuestionDiv, questionID){
     newQuestionDiv.append(enonce);
 }
 
-function insertTypeSelection(newQuestionDiv, questionID){
+function insertTypeQuestionSelection(newQuestionDiv, questionID){
     let questionType = document.createElement("div");
     questionType.className = "form-group row";
 
@@ -71,10 +139,11 @@ function insertTypeSelection(newQuestionDiv, questionID){
     typeSelect.setAttribute("type", "text");
     typeSelect.setAttribute("name", `typeQuestion${questionID}`);
     typeSelect.setAttribute("id", `typeQuestion${questionID}`);
-    typeSelect.setAttribute("onchange", `select('${questionID}')`);
+    typeSelect.setAttribute("onchange", `selectType('${questionID}')`);
 
     //création des options
     typeSelect.insertAdjacentHTML("beforeend", "<option selected value='typeQ'>Type de Question </option>");
+
     let option1 = document.createElement("option");
     option1.setAttribute("value", "libre");
     option1.textContent = "Réponse libre";
@@ -232,8 +301,42 @@ function changeQuestions(){
         $("#removeBtn".concat(newQuestionID)).attr("onclick", `removeQuestion('${newQuestionID}')`);
 
         // changement du onchange pour sélectionner le type
-        $("#typeQuestion".concat(newQuestionID)).attr("onchange", `select('${newQuestionID}')`);
+        $("#typeQuestion".concat(newQuestionID)).attr("onchange", `selectType('${newQuestionID}')`);
     });
 
 
+}
+
+function selectType(questionID){
+    let type = $("#typeQuestion".concat(questionID));
+
+    switch(type.val()){
+        case "libre":
+            $("#".concat(questionID)).append(insertLibre(questionID));
+            $("#qcm".concat(questionID)).remove();
+            break;
+
+        case "qcm":
+            $("#".concat(questionID)).append(insertQcm(questionID, 8));
+            $("#libre".concat(questionID)).remove();
+            break;
+
+        case "typeQ":
+            $("#qcm".concat(questionID)).remove();
+            $("#libre".concat(questionID)).remove();
+            break;
+
+    }
+}
+
+function selectTheme(){
+    let themeValue = $("#themeSelect").val();
+
+    if (themeValue === "nouveau"){
+        $("#theme").after(insertCreateTheme());
+    }
+
+    else {
+        $("#createTheme").remove();
+    }
 }

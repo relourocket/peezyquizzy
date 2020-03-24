@@ -330,13 +330,11 @@ function update_user_status($id, $status){
     }
 }
 
-
 function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm8, $juste) {
     $sql = connect_db();
     if ($sql != null) {
         $type = "qcm";
         // Pour un QCM
-
 
         // Insertion question
         $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
@@ -466,4 +464,14 @@ function saveQuestionLibre ($enonce, $type, $rep_libre) {
     else {
         die("No database found...");
     }
+}
+
+
+function saveQuiz($data){
+    //sauvegarde en bdd le quizz, les questions et les réponses associées
+
+    $sql = connect_db();
+
+    //sauvegarde du quizz
+    $stmt = $sql->prepare("INSERT INTO quizz VALUES(0, ?, ?, ?, ?, ?, ?)");
 }
