@@ -1,35 +1,240 @@
+body {
+    background-image: url("../images/fond.png");
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+
+/* ===================================== INDEX.PHP ========================================== */
+.no_image {
+    background-image: none !important;
+}
+
 .flex_column_div
 {
-    border: solid;
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 3em;
-    width: 70em;
+    margin-top: 1em;
+    width: 80%;
     text-align: center;
     justify-content: space-around;
     align-items: center;
 }
 
-.choixConteneur
-{
-    border: solid;
+.imageQuiz {
+    width: 100%;
+    height: 200px;
+}
+
+.bienvenue {
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.desc_accueil {
+    margin-top: 20px;
+}
+
+.boutons_accueil {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+.indexButton {
+    display: flex;
+    width: 300px !important;
+    color: white;
+    font-weight: bold;
+    height: 3em;
+    border-radius: 10px;
+    font-size: 1.5em;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.green {
+    background-color: #97d94d;
+    border: 2px solid #77B61F;
+}
+
+.purple {
+    background-color: #B040B5;
+    border: 2px solid #9E4873;
+}
+
+.indexButton:hover {
+    color: whitesmoke;
+}
+
+
+/* ===================================== ACCUEILADMIN.PHP ============================================== */
+
+.admin_boutons {
     display: flex;
     flex-wrap: wrap;
-    width: 100em;
+    width: 70%;
+}
+
+.titre_admin {
+    margin-top: 30px;
+}
+
+.desc_admin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* =================================== CHOIXQUIZZ.PHP ================================ */
+
+.choixConteneur
+{
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
     margin-top: 3em;
-
     justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
 
 }
+
+.quizButton, .scoreQuiz
+{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.3em;
+    height: auto;
+    width: 50%;
+    margin-top: 20px;
+    align-items: center;
+    text-decoration: none;
+    font-size: 3em;
+    text-align: center;
+}
+
+.quizButton:hover {
+    color: whitesmoke;
+}
+
+.quizTitre {
+    font-weight: bold;
+    color: white;
+}
+
+.quizDescription {
+    font-style: oblique;
+    color: whitesmoke;
+}
+
+
+/* ================================== CHOIXTHEME.PHP =================================== */
+
+.themeButton
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: solid 2px black;
+    border-radius: 0.3em;
+    height: auto;
+    width: 6em;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 3em;
+    color: rgb(100,100,100);
+    text-align: center;
+}
+
+.themeButton:hover {
+    color: black;
+}
+
+.choixConteneurTheme
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 3em;
+    flex-direction: row;
+    align-content: center;
+    width: 52%;
+
+}
+
+.titre_theme {
+    font-weight: bold;
+}
+
+.green_title {
+    color: #97d94d;
+}
+
+.purple_title {
+    color : #B040B5;
+}
+
+.desc_theme {
+    font-style: oblique;
+}
+
+.image_theme {
+    height: 150px;
+    max-width: 90%;
+}
+
+/* ================================= CONNEXION.PHP =================================== */
+
+.form_connexion {
+    width: 40%;
+    margin-top: 30px;
+}
+
+.connexion_title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.btn_form {
+    margin-left: 18rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+/* ================================= CREERQUIZ.PHP =================================== */
+
+.question .form-group {
+    width: 90%;
+    margin-top: 1rem;
+}
+
+#addQuestion
+{
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    border:solid;
+}
+
+/* ============================= DESCRIPTIONQUIZ.PHP ===================================== */
 
 .descriptionConteneur
 {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 30em;
+    width: 20em;
 
     margin: auto;
     margin-top: 3em;
@@ -48,20 +253,110 @@
     width: 17em;
 }
 
-.indexButton
+.startButton, .rejouerButton, .autreQuizButton, .gererButton
 {
     display: flex;
-    width: 20em;
-    height: 3em;
-    border: solid;
-    border-color: rgba(100,100,100,0.3);
-    border-radius: 10px;
-
-    font-size: 1.5em;
-
+    flex-direction: row;
+    border-radius: 0.3em;
+    height: 1.7em;
+    width: 9em;
     justify-content: space-around;
     align-items: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white;
+    margin-top: 50px;
 }
+
+.gererButton {
+    width: 5em;
+}
+
+.startButton:hover, .gererButton:hover {
+    color: whitesmoke;
+}
+
+
+/* ======================================= GERERUSER.PHP =============================== */
+
+.user
+{
+    display: flex;
+    flex-direction: row;
+    width: 25em;
+    height: 6em;
+    justify-content: space-around;
+}
+
+.identite {
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    font-style: normal;
+}
+
+.changer {
+    height: 46px;
+    border-radius: 7px;
+    color: white;
+    margin-left: 20px;
+}
+
+.pseudo {
+    font-weight: bold;
+}
+
+/* ================================ JOUERQUIZ.PHP =============================== */
+.quizForm {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.quizConteneur {
+    width: 25em;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 3em;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.quizForm label {
+    margin-top: 10px;
+}
+
+.question {
+    font-weight: bold;
+}
+
+/* ========================================== PROFIL ======================================= */
+
+.titre_profil {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.scoreQuiz {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.nom_quiz {
+    width: 80%;
+}
+
+/* =================================== SCORE.PHP ===================================*/
+
+td {
+    font-size: large;
+    padding: 30px;
+}
+
+
 
 .bigButton
 {
@@ -78,95 +373,6 @@
     border-color: rgb(80,80,80);
 }
 
-.themeButton
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 10em;
-    width: 10em;
-    margin-top: 1em;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 3em;
-    color: rgb(100,100,100);
-}
-
-.user
-{
-    display: flex;
-    flex-direction: column;
-
-    width: 10em;
-    height: 6em;
-    justify-content: space-around;
-}
-
-.quizButton, .scoreQuiz
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 1.5em;
-    width: 23em;
-    margin-top: 1em;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 3em;
-    color: rgb(100,100,100);
-}
-
-.startButton, .rejouerButton, .autreQuizButton
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 1.7em;
-    width: 9em;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 1.2em;
-    color: rgb(100,100,100);
-}
-
-.rejouerButton, .autreQuizButton
-{
-        font-size: 2em;
-        margin-top: 1em;
-}
-
-.gererButton
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 1.7em;
-    width: 4em;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 1.2em;
-    color: rgb(100,100,100);
-}
-
-#addQuestion
-{
-    display: flex;
-    flex-direction: column;
-    width: 40em;
-    border:solid;
-}
 
 .bigButton:active, .bigButton:hover,
 .indexButton:active, .indexButton:hover,
@@ -185,9 +391,6 @@
     display: block;
 }
 
-.quizForm {
-    margin-top: 30px;
-}
 
 .creer_question {
     margin: 30px;

@@ -21,19 +21,22 @@
       //
       //   }
 
-      if(isset($_POST)) echo var_dump($_POST);
+      //if(isset($_POST)) echo var_dump($_POST);
      ?>
 
     <body>
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Wesh Admin</h1>
+            <h1 class="titre_admin">Accueil de la gestion des quiz</h1>
+            <h3 class="desc_admin">Choisissez ce que vous souhaitez faire</h3>
 
-            <a class="indexButton" href="../includes/creerQuestion.php">Créer une Question </a>
-            <a class="indexButton" href="./creerQuiz.php">Créer un Quiz</a>
-            <a class="indexButton" href="./choixTheme.php">Gérer un Quiz</a>
-            <a class="indexButton" href="./gererUsers.php">Gérer les Utilisateurs</a>
+            <div class="admin_boutons">
+                <a class="indexButton green" href="../includes/creerQuestion.php">Créer une Question </a>
+                <a class="indexButton green" href="./creerQuiz.php">Créer un Quiz</a>
+                <a class="indexButton purple" href="./choixTheme.php">Gérer un Quiz</a>
+                <a class="indexButton purple" href="./gererUsers.php">Gérer les Utilisateurs</a>
+            </div>
 
         </div>
 

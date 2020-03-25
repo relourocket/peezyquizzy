@@ -30,16 +30,16 @@
 
             <table>
                 <tr>
-                    <td>Votre Score : <?php  echo $score?></td> <td>Meilleur Score : <?php echo $best_score ?></td>
+                    <td class="purple_title">Votre Score : <?php  echo $score?></td> <td class="purple_title"> Meilleur Score : <?php echo $best_score ?></td>
                 </tr>
 
                 <tr>
-                    <td>Votre temps : [temps]</td> <td>Meilleur temps : <?php  if ($best_time > 0) echo $best_time ?></td>
+                    <td class="green_title">Votre temps : [temps]</td> <td class="green_title"> Meilleur temps : <?php  if ($best_time > 0) echo $best_time ?></td>
                 </tr>
             </table>
             <div>
-                <a class="rejouerButton" href="descriptionQuiz.php?id=<?php echo $_POST['idquizz'] ?>">Rejouer</a>
-                <a class="autreQuizButton" href="choixTheme.php">Faire un autre Quiz</a>
+                <a class="indexButton green" href="descriptionQuiz.php?id=<?php echo $_POST['idquizz'] ?>">Rejouer</a>
+                <a class="indexButton purple" href="choixTheme.php">Faire un autre Quiz</a>
             </div>
 
         </div>
