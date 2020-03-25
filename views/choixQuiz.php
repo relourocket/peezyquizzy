@@ -24,13 +24,13 @@
                     $purple = "purple";
                     foreach ($quizz as $key => $value) {
                         if ($i%2 == 0) {
-                            echo "<a class = 'quizButton green' href='descriptionQuiz.php?id=" . ($i + 1) . "'><h1 class='quizTitre'>" . utf8_encode($quizz[$i][2]) . "</h1>" .
-                                "<br><h3 class='quizDescription'>" . utf8_encode($quizz[$i][4]) . "</h3>" .
+                            echo "<a class = 'quizButton green' href='descriptionQuiz.php?id=" . ($i + 1) . "'><h1 class='quizTitre'>" . $quizz[$i][2] . "</h1>" .
+                                "<br><h3 class='quizDescription'>" . $quizz[$i][4] . "</h3>" .
                                 "</a>";
                         }
                         else {
-                            echo "<a class = 'quizButton purple' href='descriptionQuiz.php?id=" . ($i + 1) . "'><h1 class='quizTitre'>" . utf8_encode($quizz[$i][2]) . "</h1>" .
-                                "<br><h3 class='quizDescription'>" . utf8_encode($quizz[$i][4]) . "</h3>" .
+                            echo "<a class = 'quizButton purple' href='descriptionQuiz.php?id=" . ($i + 1) . "'><h1 class='quizTitre'>" . $quizz[$i][2] . "</h1>" .
+                                "<br><h3 class='quizDescription'>" . $quizz[$i][4] . "</h3>" .
                                 "</a>";
                         }
                         $i++;

@@ -11,7 +11,7 @@
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Connecte toi pour jouer</h1>
+            <h1 class="connexion_title">Connecte toi pour jouer</h1>
 
             <?php if (isset($_GET['error'])) {
                     if ($_GET['error'] == 1) {
@@ -39,18 +39,18 @@
                 }
             ?>
 
-            <form method="POST" action="./choixTheme.php">
+            <form method="POST" action="./choixTheme.php" class="form_connexion">
                 <div class="form-group row">
-                    <label for="login">Login * </label>
+                    <label for="login">Login <span class="purple_title">*</span> </label>
                     <input type="text" name="login" id="login" class="form-control" required>
                 </div>
 
                 <div class="form-group row">
-                    <label for="mdp">Mot de passe * </label>
+                    <label for="mdp">Mot de passe <span class="purple_title">*</span> </label>
                     <input type="password" name="mdp" id="mdp" class="form-control" required>
                 </div>
 
-                <input type="submit" class="btn">
+                <button type="submit" class="btn_form btn green">Je me connecte</button>
             </form>
 
 

@@ -9,7 +9,7 @@
         <?php include("../includes/navbar.php"); ?>
 
         <div class="flex_column_div">
-            <h1>Bienvenue à toi. Inscris-toi pour jouer !</h1>
+            <h1 class="connexion_title">Bienvenue à toi. Inscris-toi pour jouer !</h1>
 
             <?php if (isset($_GET['error'])) {
                     if ($_GET['error'] == 1) {
@@ -21,23 +21,23 @@
                 }
             ?>
 
-            <form method="POST" action="connexion.php?newuser=1">
+            <form method="POST" action="connexion.php?newuser=1" class="form_connexion">
                 <div class="form-group row">
-                    <label for="login">Login * </label>
+                    <label for="login">Login <span class="purple_title">*</span> </label>
                     <input type="text" name="login" id="login" class="form-control" required>
                 </div>
 
                 <div class="form-group row">
-                    <label for="mdp">Mot de passe * </label>
-                    <input type="text" name="mdp" id="mdp" class="form-control" required>
+                    <label for="mdp">Mot de passe <span class="purple_title">*</span> </label>
+                    <input type="password" name="mdp" id="mdp" class="form-control" required>
                 </div>
 
                 <div class="form-group row">
-                    <label for="mdpConfirm">Confirmation du mot de passe * </label>
-                    <input type="text" name="mdpConfirm" id="mdpConfirm" class="form-control" required>
+                    <label for="mdpConfirm">Confirmation du mot de passe <span class="purple_title">*</span> </label>
+                    <input type="password" name="mdpConfirm" id="mdpConfirm" class="form-control" required>
                 </div>
 
-                <button type="submit" class="btn">Confirmer </button>
+                <button type="submit" class="btn btn_form green">Confirmer </button>
             </form>
 
         </div>

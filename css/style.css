@@ -193,13 +193,48 @@ body {
     max-width: 90%;
 }
 
+/* ================================= CONNEXION.PHP =================================== */
+
+.form_connexion {
+    width: 40%;
+    margin-top: 30px;
+}
+
+.connexion_title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.btn_form {
+    margin-left: 18rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+/* ================================= CREERQUIZ.PHP =================================== */
+
+.question .form-group {
+    width: 90%;
+    margin-top: 1rem;
+}
+
+#addQuestion
+{
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    border:solid;
+}
+
+/* ============================= DESCRIPTIONQUIZ.PHP ===================================== */
 
 .descriptionConteneur
 {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 30em;
+    width: 20em;
 
     margin: auto;
     margin-top: 3em;
@@ -218,6 +253,111 @@ body {
     width: 17em;
 }
 
+.startButton, .rejouerButton, .autreQuizButton, .gererButton
+{
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.3em;
+    height: 1.7em;
+    width: 9em;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white;
+    margin-top: 50px;
+}
+
+.gererButton {
+    width: 5em;
+}
+
+.startButton:hover, .gererButton:hover {
+    color: whitesmoke;
+}
+
+
+/* ======================================= GERERUSER.PHP =============================== */
+
+.user
+{
+    display: flex;
+    flex-direction: row;
+    width: 25em;
+    height: 6em;
+    justify-content: space-around;
+}
+
+.identite {
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    font-style: normal;
+}
+
+.changer {
+    height: 46px;
+    border-radius: 7px;
+    color: white;
+    margin-left: 20px;
+}
+
+.pseudo {
+    font-weight: bold;
+}
+
+/* ================================ JOUERQUIZ.PHP =============================== */
+.quizForm {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.quizConteneur {
+    width: 25em;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 3em;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.quizForm label {
+    margin-top: 10px;
+}
+
+.question {
+    font-weight: bold;
+}
+
+/* ========================================== PROFIL ======================================= */
+
+.titre_profil {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.scoreQuiz {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.nom_quiz {
+    width: 80%;
+}
+
+/* =================================== SCORE.PHP ===================================*/
+
+td {
+    font-size: large;
+    padding: 30px;
+}
+
+
+
 .bigButton
 {
     display:flex;
@@ -233,62 +373,6 @@ body {
     border-color: rgb(80,80,80);
 }
 
-.user
-{
-    display: flex;
-    flex-direction: column;
-
-    width: 10em;
-    height: 6em;
-    justify-content: space-around;
-}
-
-
-.startButton, .rejouerButton, .autreQuizButton
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 1.7em;
-    width: 9em;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 1.2em;
-    color: rgb(100,100,100);
-}
-
-.rejouerButton, .autreQuizButton
-{
-        font-size: 2em;
-        margin-top: 1em;
-}
-
-.gererButton
-{
-    display: flex;
-    flex-direction: row;
-    border: solid;
-    border-radius: 0.3em;
-    height: 1.7em;
-    width: 4em;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-
-    font-size: 1.2em;
-    color: rgb(100,100,100);
-}
-
-#addQuestion
-{
-    display: flex;
-    flex-direction: column;
-    width: 40em;
-    border:solid;
-}
 
 .bigButton:active, .bigButton:hover,
 .indexButton:active, .indexButton:hover,
@@ -307,9 +391,6 @@ body {
     display: block;
 }
 
-.quizForm {
-    margin-top: 30px;
-}
 
 .creer_question {
     margin: 30px;

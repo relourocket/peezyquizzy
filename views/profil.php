@@ -10,11 +10,10 @@
               require_once "../includes/functions_db.php";
         ?>
 
-        <h1><?php if(isset($_SESSION["login"])) echo $_SESSION["login"];?></h1>
+        <h1 class="titre_profil">Votre profil</h1>
 
         <?php
-        // TODO : pseudo quand yaura variable de session !
-        $scores = get_all_score('agass');
+        $scores = get_all_score($_SESSION['login']);
         ?>
 
 
@@ -22,11 +21,20 @@
             <?php
                 $i = 0;
                 foreach ($scores as $key => $value) {
-                    echo "
-                        <a class='scoreQuiz' href='descriptionQuiz.php?id=". $scores[$i][0] ."'>
-                            <div>" . utf8_encode($scores[$i][1]) ."</div>
+                    if ($i%2 == 0) {
+                        echo "
+                        <a class='scoreQuiz quizButton green' href='descriptionQuiz.php?id=" . $scores[$i][0] . "'>
+                            <div class='nom_quiz'>" . $scores[$i][1] . "</div>
                             <div>" . $scores[$i][2] . "</div>
                         </a> ";
+                    }
+                    else {
+                        echo "
+                        <a class='scoreQuiz quizButton purple' href='descriptionQuiz.php?id=" . $scores[$i][0] . "'>
+                            <div class='nom_quiz'>" . $scores[$i][1] . "</div>
+                            <div>" . $scores[$i][2] . "</div>
+                        </a> ";
+                    }
                     $i++;
                 }
             ?>

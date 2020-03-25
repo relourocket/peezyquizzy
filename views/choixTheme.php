@@ -44,16 +44,16 @@
             foreach ($themes as $key => $value) {
                 if($i%2==0) {
                     echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>
-                    <h1 class='titre_theme green_title'>" . utf8_encode($themes[$i][1]) . "</h1>" .
-                        "<h3 class='desc_theme'>" . utf8_encode($themes[$i][2]) . "</h3>" .
-                        "<br><img class='image_theme' src = '.." . utf8_encode($themes[$i][3]) . "'/>" .
+                    <h1 class='titre_theme green_title'>" . $themes[$i][1] . "</h1>" .
+                        "<h3 class='desc_theme'>" . $themes[$i][2] . "</h3>" .
+                        "<br><img class='image_theme' src = '.." . $themes[$i][3] . "'/>" .
                         "</a>";
                 }
                 else {
                     echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>
-                    <h1 class='titre_theme purple_title'>" . utf8_encode($themes[$i][1]) . "</h1>" .
-                        "<h3 class='desc_theme'>" . utf8_encode($themes[$i][2]) . "</h3>" .
-                        "<br><img class='image_theme' src = '.." . utf8_encode($themes[$i][3]) . "'/>" .
+                    <h1 class='titre_theme purple_title'>" . $themes[$i][1] . "</h1>" .
+                        "<h3 class='desc_theme'>" . $themes[$i][2] . "</h3>" .
+                        "<br><img class='image_theme' src = '.." . $themes[$i][3] . "'/>" .
                         "</a>";
                 }
 

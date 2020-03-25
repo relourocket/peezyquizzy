@@ -5,7 +5,7 @@
 
     <?php include "../includes/head.php"?>
 
-    <body>
+    <body class="no_image">
         <?php include("../includes/navbar.php");
               require_once "../includes/functions_db.php";
         ?>
@@ -16,9 +16,9 @@
         }
         ?>
 
-        <div class="descriptionConteneur">
-           <?php  echo "<h1>" . utf8_encode($questions[0][2]) . "</h1>
-            <div>Description : " . utf8_encode($questions[0][4]) . " </div>" ?>
+        <div class="quizConteneur">
+           <?php echo "<h1 class='titre_theme'>" . $questions[0][2] . "</h1>
+            <div class='desc_theme'>Description : " . $questions[0][4] . " </div>" ?>
 
             <form method="post" action="./score.php" class="quizForm">
 
@@ -27,7 +27,7 @@
                     $indexRadio = 0; //index pour répertorier les radios correctement
                     foreach ($questions as $key => $value) {
                         $answers = get_answers($i+1);
-                        echo "<label for='question" .$i ."'>" .  utf8_encode($questions[$i][12]) . "." . utf8_encode($questions[$i][9]) . "</label>";
+                        echo "<label class='question' for='question" .$i ."'> <span class='purple_title'>" .  $questions[$i][12] . ". </span>" . $questions[$i][9] . "</label>";
                         if (strcmp($answers[0][1], "libre") == 0) {
                             echo "<input type='text' id='question" .$i ."' name='". $i ."'>";
                         }
@@ -35,8 +35,8 @@
                             $j = 0; //index des réponses pour les radios
                             foreach ($answers as $key2 => $value2) {
                                 echo "<div>
-                                          <input type='radio' name='" . $i . "' id='rep" .$indexRadio ."'value= '" . utf8_encode($answers[$j][4]) . "'>
-                                          <label for= 'rep" .$indexRadio ."'>". utf8_encode($answers[$j][4]) ."</label>
+                                          <input type='radio' name='" . $i . "' id='rep" .$indexRadio ."'value= '" . $answers[$j][4] . "'>
+                                          <label for= 'rep" .$indexRadio ."'>". $answers[$j][4] ."</label>
                                     </div>";
                                 $j++;
                                 $indexRadio++;
@@ -49,7 +49,7 @@
                 ?>
 
 
-                <button class="btn" type="submit">Envoyer </button>
+                <button class="btn btn_form green" type="submit">Envoyer les réponses </button>
 
             </form>
 
