@@ -3,7 +3,11 @@
 
 <html>
 
-    <?php include "../includes/head.php"?>
+    <?php
+        include "../includes/head.php";
+        include "../includes/functions_db.php";
+        include "../includes/functions.php";
+    ?>
 
 
 
@@ -14,12 +18,11 @@
         <!--on importe jquery ici car l'import de bootstrap est la version slim qui ne contient pas load()-->
         <script type="text/javascript" src="../js/jquery_3.4.1.js"></script>
         <script type="text/javascript" src="../js/creerQuiz.js"></script>
-        <script type="text/javascript" src="../js/creer_question.js"></script>
 
         <div class="flex_column_div">
             <h1>Créer un Quiz</h1>
 
-            <form method="post" action="./accueilAdmin.php">
+            <form method="post" action="./accueilAdmin.php" enctype="multipart/form-data">
                 <!-- informations sur le quizz -->
                 <div>
                     <!-- titre -->
@@ -28,20 +31,32 @@
                         <input type="text" name="titre" id="titre" class="form-control col-sm-9" required>
                     </div>
 
-                    <!-- thème -->
-                    <div class="form-group row">
-                        <label for="theme" class="col-sm-3 col-form-label">Thème <span class="purple_title">*</span></label>
-                        <input type="text" name="theme" id="theme" class="form-control col-sm-9" required>
-                    </div>
 
                     <!-- description -->
                     <div class="form-group row">
-                        <label for="description" class="col-sm-3 col-form-label">Description <span class="purple_title">*</span></label>
+                        <label for="description" class="col-sm-3 col-form-label">Description Quiz</label>
                         <input type="text" name="description" id="description" class="form-control col-sm-9" required>
                     </div>
+
+                    <!-- thème -->
+                    <div id="theme" class="form-group row">
+                        <label for="themeSelect" class="col-sm-3 col-form-label">Thème</label>
+                        <select name="theme" id=themeSelect class="form-control col-sm-9" onchange="selectTheme()" required>
+                            <option value="" selected disabled>-- Choix du Thème --</option>
+                            <option value='nouveau'>Nouveau Thème</option>
+                            <?php
+                                insert_theme_options();
+                            ?>
+                        </select>
+                    </div>
+
+
                 </div>
 
                 <!-- Questions -->
+
+                <!-- conteneur où sont insérés tous les éléments d'une question -->
+
                 <p>Les questions de votre nouveau quiz :</p>
                 <div id="addQuestion"></div>
 
@@ -49,8 +64,13 @@
 
                 <!-- difficulté -->
                 <div class="form-group row">
-                    <label class="col-sm-5">Difficulté <span class="purple_title">*</span></label>
-                    <select class="form-control col-sm-7" name="difficulte">
+
+                    <label for ="difficulte" class="col-sm-5">Difficulté</label>
+                    <select id="difficulte" name="difficulte" class="form-control col-sm-7" >
+
+                    <label for ="difficulte" class="col-sm-5">Difficulté <span class="purple_title">*</span></label>
+                    <select class="form-control col-sm-7" name="difficulte" id="difficulte">
+
                         <option value="facile" selected>Facile</option>
                         <option value="moyen">Moyen</option>
                         <option value="difficile">Difficile</option>
