@@ -2,6 +2,7 @@
 
 function connect_db () {
     $mysqli = new mysqli("localhost", "root", "", "myquizz");
+    $mysqli->set_charset("utf8");
     // Check connection
     if ($mysqli->connect_error) {
         die("Connection failed: " . $mysqli->connect_error);

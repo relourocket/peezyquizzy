@@ -37,15 +37,26 @@
               $themes = get_all_themes();
         ?>
 
-        <div class="choixConteneur">
+        <div class="choixConteneurTheme">
 
             <?php
             $i = 0;
             foreach ($themes as $key => $value) {
-                echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>" . utf8_encode($themes[$i][1]) .
-                    "<br>" . utf8_encode($themes[$i][2]) .
-                    "<br><img src = '.." . utf8_encode($themes[$i][3]) . "'/>" .
-                    "</a>";
+                if($i%2==0) {
+                    echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>
+                    <h1 class='titre_theme green_title'>" . $themes[$i][1] . "</h1>" .
+                        "<h3 class='desc_theme'>" . $themes[$i][2] . "</h3>" .
+                        "<br><img class='image_theme' src = '.." . $themes[$i][3] . "'/>" .
+                        "</a>";
+                }
+                else {
+                    echo "<a class = 'themeButton' href='choixQuiz.php?id=".($i+1)."'>
+                    <h1 class='titre_theme purple_title'>" . $themes[$i][1] . "</h1>" .
+                        "<h3 class='desc_theme'>" . $themes[$i][2] . "</h3>" .
+                        "<br><img class='image_theme' src = '.." . $themes[$i][3] . "'/>" .
+                        "</a>";
+                }
+
                 $i++;
             }
             ?>

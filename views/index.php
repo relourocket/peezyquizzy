@@ -16,16 +16,19 @@
 
     <?php include "../includes/head.php"?>
 
-    <body>
+    <body class="no_image">
 
         <?php include("../includes/navbar.php"); ?>
 
-        <div class="flex_column_div">
-            <h1>Bienvenue sur QuizzyPeezy !</h1>
+        <img src="../images/quiz.png" class="imageQuiz">
 
-            <a class="indexButton" href="./inscription.php">Créer un compte </a>
-            <a class="indexButton" href="./connexion.php">Connexion Utilisateur</a>
-            <a class="indexButton" href="./connexion.php">Connexion Admin</a>
+        <div class="flex_column_div">
+            <h1 class="bienvenue">Bienvenue sur QuizzyPeezy !</h1>
+            <h3 class="desc_accueil">Venez tester vos connaissances sur les thèmes de votre choix grâce à un grand nombre de quiz</h3>
+            <div class="boutons_accueil">
+                <a class="indexButton green" href="./inscription.php">Créer un compte </a>
+                <a class="indexButton purple" href="./connexion.php">Connexion Utilisateur</a>
+            </div>
 
         </div>
 
