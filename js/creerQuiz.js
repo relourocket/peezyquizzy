@@ -54,6 +54,7 @@ function insertCreateTheme(){
     imgThemeInput.className = "col-sm-9";
     imgThemeInput.setAttribute("type", "file");
     imgThemeInput.setAttribute("name", "imgTheme");
+    imgThemeInput.required = true;
 
     imgThemeDiv.append(imgThemeLabel);
     imgThemeDiv.append(imgThemeInput);
@@ -240,7 +241,7 @@ function insertQcmRep(qcmDiv, questionID, indiceRep){
     justeInput.id = `justeRep${indiceRep}${questionID}`;
     justeInput.className = "col-sm-1";
     justeInput.setAttribute("type", "radio");
-    justeInput.setAttribute("name", "juste");
+    justeInput.setAttribute("name", `juste${questionID}`);
     justeInput.setAttribute("value",`${indiceRep}`);
     justeInput.required = true;
 

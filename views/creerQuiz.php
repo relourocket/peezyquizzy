@@ -39,7 +39,7 @@
 
                     <!-- thème -->
                     <div id="theme" class="form-group row">
-                        <label for="theme" class="col-sm-3 col-form-label">Thème</label>
+                        <label for="themeSelect" class="col-sm-3 col-form-label">Thème</label>
                         <select name="theme" id=themeSelect class="form-control col-sm-9" onchange="selectTheme()" required>
                             <option value="" selected disabled>-- Choix du Thème --</option>
                             <option value='nouveau'>Nouveau Thème</option>
@@ -47,7 +47,6 @@
                                 insert_theme_options();
                             ?>
                         </select>
-
                     </div>
 
 
