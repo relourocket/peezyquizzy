@@ -51,6 +51,7 @@ function insertCreateTheme(){
     imgThemeLabel.textContent = "Image illustrative";
 
     let imgThemeInput = document.createElement("input");
+    imgThemeInput.id = "upload";
     imgThemeInput.className = "col-sm-9";
     imgThemeInput.setAttribute("type", "file");
     imgThemeInput.setAttribute("name", "imgTheme");
@@ -340,4 +341,92 @@ function selectTheme(){
     else {
         $("#createTheme").remove();
     }
+}
+
+function checkForm(){
+    // vérifie que tout est ok dans le form pour la validation
+    let isOk = true;
+
+    // vérification de si le thème choisi n'existe pas déjà
+    if($("#createTheme").length === 1){
+        let nouveauTheme = $("#nomTheme").val();
+        let options = $("#themeSelect")[0].options;
+
+        for(let i = 0; i < options.length; i++){
+            let optionValue = options[i].getAttribute("value");
+            if(nouveauTheme === optionValue){
+                isOk = false;
+                $("#erreur").empty();
+                $("#erreur").append("Le thème sélectionné existe déjà <br>" );
+            }
+        }
+    }
+
+    // vérification qu'il existe des questions dans le form
+    let nbQuestions = $(".question").length;
+    if(nbQuestions === 0){
+        isOk = false;
+        $("#erreur").empty();
+        $("#erreur").append("Votre questionnaire ne contient aucune question ! <br>");
+    }
+
+    // vérifie si les questions ont des réponses
+    else{
+        $(".question").each(function(){
+            let idQuestion = this.id;
+            let checkQcm = $(`#qcm${idQuestion}`).length;
+            let checkLibre = $(`#libre${idQuestion}`).length;
+
+            if(checkQcm != 1 && checkLibre != 1){
+                isOk = false;
+                $("#erreur").empty();
+                $("#erreur").append("Certaines de vos questions ne contiennent pas de réponse(s) <br>");
+            }
+        });
+    }
+
+    // vérification de si on upload qu'une seule image + de l'extension + de la taille
+    if($("#upload").length != 0){
+        if($("#upload")[0].files.length != 1){
+            isOk = false;
+            $("#erreur").empty();
+        }
+        else {
+            let file = $("#upload")[0].files[0];
+
+            // vérif extension
+            let validExtensions = ["jpeg", "jpg", "png"];
+            let splittedName = file.name.split(".")
+            let fileExtension = splittedName[splittedName.length - 1].toLowerCase();
+
+            if(!validExtensions.includes(fileExtension)){
+                isOk = false;
+                $("#erreur").empty();
+                $("#erreur").append("L'image uploadée n'a pas une extension valide <br>" );
+            }
+
+            // vérif poids de l'image
+            let fileSize = file.size;
+            if(fileSize > 4194304){
+                isOk = false;
+                $("#erreur").empty();
+                $("#erreur").append("L'image uploadée est trop lourde (> 4Mo) <br>" );
+            }
+        }
+    }
+
+    // vérifie que tous les inputs sont non vides
+    let regex = new RegExp("^[ ]+$");
+    $("input").each(function(){
+        let value = $(this).val();
+        if(regex.test(value)){
+            isOk = false;
+            $("#erreur").empty();
+            $("#erreur").append("Un de vos champs est vide <br>" );
+        }
+    });
+
+
+
+    return isOk;
 }

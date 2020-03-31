@@ -7,9 +7,13 @@ include "../includes/functions.php";
 ?>
 
 <?php
-    if(isset($_POST)) saveQuiz($_POST);
+    // echo isset($_POST);
+    // var_dump($_POST);
+    // var_dump($_FILES);
+    // upload_img();
+    if(isset($_POST) && isset($_POST["theme"])) saveQuiz($_POST);
  ?>
- 
+
 <!doctype html>
 <html>
     <body>
