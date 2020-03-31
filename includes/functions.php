@@ -19,6 +19,8 @@ function insert_theme_options(){
 
 function upload_img(){
     // Déplace l'image uploadée dans le répertoire images
+    // renvoie le path de l'image déplacée si le transfert est effectué
+    // renvoie un chemin vers une image par défaut si ça échoue
 
     if(isset($_FILES) && $_FILES["imgTheme"]["error"]==0){
         $extAllowed = array("jpeg", "jpg", "png");
@@ -37,9 +39,11 @@ function upload_img(){
         if(in_array($imgExt, $extAllowed) && $imgSize < (4 * 1024 * 1024)){
             move_uploaded_file($tmp_name, $path .$imgName);
 
-            return true;
+            // on retourne le path sans les points devant
+            $imgName = substr($imgName, 2);
+            return $imgName;
         }
-        else return false;
+        else return "/images/default.jpg";
     }
 }
 

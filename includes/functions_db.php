@@ -400,7 +400,7 @@ function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm
     if ($sql != null) {
 
         $type = "qcm";
-        
+
         // Insertion question
         $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
         $stmt->bind_param("ss", $type, $enonce);
@@ -588,8 +588,9 @@ function saveTheme($data){
         if(!in_array($data["nomTheme"], $allThemes)){
             $themeName = $data["nomTheme"];
             $description = $data["descrTheme"];
-            $imgName = $_FILES["imgTheme"]["name"];
 
+            // sauvegarde de l'image et récupération du path de celle-ci
+            $imgName = upload_img();
             // sauvegarde du thème
             $sql = connect_db();
             $stmt = $sql->prepare("INSERT INTO theme VALUES(0, ?, ?, ?)");
@@ -597,7 +598,7 @@ function saveTheme($data){
 
             if($stmt->execute()){
                 $stmt->close();
-                upload_img();
+
                 return true;
             }
             else{

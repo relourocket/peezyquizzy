@@ -22,7 +22,9 @@
         <div class="flex_column_div">
             <h1>Créer un Quiz</h1>
 
-            <form method="post" action="./accueilAdmin.php" enctype="multipart/form-data">
+            <!-- <form method="post" action="./accueilAdmin.php" onsubmit="checkForm()" enctype="multipart/form-data"> -->
+            <form method="post" action="./accueilAdmin.php" onsubmit="return checkForm()" enctype="multipart/form-data">
+
                 <!-- informations sur le quizz -->
                 <div>
                     <!-- titre -->
@@ -64,13 +66,8 @@
 
                 <!-- difficulté -->
                 <div class="form-group row">
-
-                    <label for ="difficulte" class="col-sm-5">Difficulté</label>
-                    <select id="difficulte" name="difficulte" class="form-control col-sm-7" >
-
                     <label for ="difficulte" class="col-sm-5">Difficulté <span class="purple_title">*</span></label>
                     <select class="form-control col-sm-7" name="difficulte" id="difficulte">
-
                         <option value="facile" selected>Facile</option>
                         <option value="moyen">Moyen</option>
                         <option value="difficile">Difficile</option>
@@ -90,10 +87,12 @@
                     </div>
                 </div>
 
-                <!-- nombre de questions -->
 
                 <button class="btn btn_form green" type="submit">Créer le quiz </button>
 
+                <!-- div pour afficher qu'il y a une erreur -->
+                <div id="erreur"></div>
+                
             </form>
 
 
