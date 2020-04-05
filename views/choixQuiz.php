@@ -1,14 +1,19 @@
 <!doctype html>
 <?php session_start();?>
 
+<?php include("../includes/navbar.php");
+      require_once "../includes/functions_db.php";
+      require_once "../includes/functions.php";
+
+      checkConnection();
+?>
+
 <html>
 
     <?php include "../includes/head.php"?>
 
     <body>
-        <?php include("../includes/navbar.php");
-              require_once "../includes/functions_db.php";
-        ?>
+
 
         <?php
         if (isset($_GET['id'])) {

@@ -7,6 +7,9 @@
         include "../includes/head.php";
         include "../includes/functions_db.php";
         include "../includes/functions.php";
+
+        checkConnection();
+        checkAdmin();
     ?>
 
 
@@ -92,7 +95,7 @@
 
                 <!-- div pour afficher qu'il y a une erreur -->
                 <div id="erreur"></div>
-                
+
             </form>
 
 

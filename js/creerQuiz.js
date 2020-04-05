@@ -69,7 +69,8 @@ function insertCreateTheme(){
 }
 
 function insertQuestion(){
-    // Insert une question à l'appel d'un onclick
+    // insert un module de création de question. L'utilisateur peut choisir entre
+    // prendre une question déjà existante ou en créer une.
 
     let questionDiv = $("#addQuestion");
     let newQuestionDiv = document.createElement("div");
@@ -82,8 +83,51 @@ function insertQuestion(){
 
     questionDiv.append(newQuestionDiv);
 
-    insertEnonce(newQuestionDiv, questionID);
-    insertTypeQuestionSelection(newQuestionDiv, questionID);
+    // select pour choisir parmi toutes les questions
+    let selectQuestionDiv = document.createElement("div");
+    selectQuestionDiv.className = "form-group row";
+
+    let selectQuestionLabel = document.createElement("label");
+    selectQuestionLabel.className = "col-form-label col-sm-4";
+    selectQuestionLabel.textContent = "Votre question :";
+
+    let selectQuestion = document.createElement("select");
+    selectQuestion.id = "selectQuestion".concat(questionID);
+    selectQuestion.required = true;
+    selectQuestion.className = "form-control col-sm-8";
+    selectQuestion.setAttribute("name", questionID);
+    selectQuestion.setAttribute("onchange", `changeCreateQuestion('${questionID}')`);
+
+    newQuestionDiv.append(selectQuestionDiv);
+    selectQuestionDiv.append(selectQuestionLabel);
+    selectQuestionDiv.append(selectQuestion);
+
+    // insertion des options
+    let defaultOption = document.createElement("option");
+    defaultOption.setAttribute("value", "");
+    defaultOption.textContent = "-- Choisissez votre question --";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    selectQuestion.append(defaultOption);
+
+    let nouveauOption = document.createElement("option");
+    nouveauOption.setAttribute("value", "nouveau");
+    nouveauOption.textContent = "Nouvelle Question";
+    selectQuestion.append(nouveauOption);
+
+    fetch("../server_side/get_questions.php")
+    .then(function(result){
+        return result.json();
+    })
+    .then(function(questions){
+        for(q of questions){
+            let questionOption = document.createElement("option");
+            questionOption.setAttribute("value", q[0]);
+            questionOption.textContent = q[2];
+
+            selectQuestion.append(questionOption);
+        }
+    });
 
     //création du bouton pour remove la question
     let removeBtn = document.createElement("button");
@@ -97,12 +141,38 @@ function insertQuestion(){
 
     //append le boutton à la question
     questionDiv.append(removeBtn);
+}
 
+function changeCreateQuestion(questionID){
+    // vérifie si l'utilisateur veut créer une nouvelle question et modifie
+    // le DOM en ajoutant ou en supprimant la possibilité de créer une question
+    // personnalisée
+
+    let nouvelleQuestionVal = $(`#selectQuestion${questionID}`).val();
+    // console.log(nouvelleQuestionVal);
+    if(nouvelleQuestionVal === "nouveau"){
+        insertCreateQuestion(questionID);
+    }
+    else{
+        $(`#createQuestion${questionID}`).remove();
+    }
+
+}
+
+function insertCreateQuestion(questionID){
+
+    let createQuestionDiv = document.createElement("div");
+    createQuestionDiv.id = `createQuestion${questionID}`;
+
+    insertEnonce(createQuestionDiv, questionID);
+    insertTypeQuestionSelection(createQuestionDiv, questionID);
+
+    $(`#${questionID}`).append(createQuestionDiv);
 
 
 }
 
-function insertEnonce(newQuestionDiv, questionID){
+function insertEnonce(createQuestionDiv, questionID){
     let enonce = document.createElement("div");
     enonce.className = "form-group row";
 
@@ -122,7 +192,7 @@ function insertEnonce(newQuestionDiv, questionID){
     // insertion
     enonce.append(enonceLabel);
     enonce.append(enonceInput);
-    newQuestionDiv.append(enonce);
+    createQuestionDiv.append(enonce);
 }
 
 function insertTypeQuestionSelection(newQuestionDiv, questionID){
@@ -191,7 +261,7 @@ function insertLibre(questionID){
     wrapperLibre.append(libreLabel);
     wrapperLibre.append(libreInput)
     libre.append(wrapperLibre);
-    // newQuestionDiv.append(libre);
+
     return libre;
 }
 
@@ -261,10 +331,10 @@ function removeQuestion(questionID){
         $("#".concat(questionID)).remove();
         $("#removeBtn".concat(questionID)).remove();
 
-        changeQuestions();
+        changeQuestionsElements();
 }
 
-function changeQuestions(){
+function changeQuestionsElements(){
     // change les attributs des éléments pour avoir une continuité dans les questions
 
     let nbQuestions = $(".question").length;
@@ -304,6 +374,9 @@ function changeQuestions(){
 
         // changement du onchange pour sélectionner le type
         $("#typeQuestion".concat(newQuestionID)).attr("onchange", `selectType('${newQuestionID}')`);
+
+        // changement onchange pour sélectionner la question voulue
+        $(`#selectQuestion${newQuestionID}`).attr("onchange", `changeCreateQuestion('${newQuestionID}')`);
     });
 
 

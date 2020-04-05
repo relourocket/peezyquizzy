@@ -158,6 +158,54 @@ function get_all_quizz_per_theme ($themeid) {
     }
 }
 
+function get_all_quizz(){
+    $sql = connect_db();
+    if($sql!=null){
+        $stmt = $sql->prepare("SELECT * FROM quizz");
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $quiz = $res->fetch_all();
+
+        return $quiz;
+    }
+
+    else {
+        die("No database found...");
+    }
+}
+
+function get_theme_by_id($id){
+    // renvoie un theme donné en fonction de son id
+
+    $sql = connect_db();
+    if($sql!=null){
+        $stmt = $sql->prepare("SELECT * FROM theme where theme_id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $theme = $res->fetch_all();
+
+        return $theme[0];
+    }
+
+    else {
+        die("No database found...");
+    }
+}
+function get_all_questions(){
+    $sql = connect_db();
+    if($sql!=null){
+        $stmt = $sql->prepare("SELECT * FROM question");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $questions = $result->fetch_all();
+
+        return $questions;
+    }
+
+    else die("pas de connexion possible");
+}
+
 function get_quizz_questions ($quizzid) {
     $sql = connect_db();
     if ($sql != null) {

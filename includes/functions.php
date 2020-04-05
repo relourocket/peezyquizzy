@@ -1,4 +1,26 @@
 <?php
+function checkConnection(){
+    // vérifie si l'utilisateur est connecté et le redirige à l'accueil si non
+
+    if(isset($_SESSION) && !isset($_SESSION["login"])){
+        header("Location: ./index.php");
+    }
+    else{
+        return true;
+    }
+}
+
+function checkAdmin(){
+    if(isset($_SESSION) && isset($_SESSION["login"]) && isset($_SESSION["isAdmin"])){
+        if($_SESSION["isAdmin"] != true){
+            header("Location: ./index.php");
+        }
+    }
+    else{
+        return true;
+    }
+}
+
 
 function check_confirm_password ($password, $confirm_password) {
     if (strcmp($password, $confirm_password) == 0) {
