@@ -3,8 +3,14 @@
 
 <html>
 
-    <?php include "../includes/head.php";?>
-    <?php include "../includes/functions_db.php";?>
+    <?php
+        include "../includes/head.php";
+        include "../includes/functions_db.php";
+        require_once "../includes/functions.php";
+
+        checkConnection();
+        checkAdmin();
+    ?>
 
     <body>
         <?php include("../includes/navbar.php"); ?>

@@ -4,6 +4,9 @@
 include "../includes/head.php";
 include "../includes/functions_db.php";
 include "../includes/functions.php";
+
+checkConnection();
+checkAdmin();
 ?>
 
 <?php

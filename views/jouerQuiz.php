@@ -3,11 +3,17 @@
 
 <html>
 
-    <?php include "../includes/head.php"?>
+    <?php
+        include "../includes/head.php"
+        require_once "../includes/functions_db.php";
+        require_once "../includes/functions.php";
+
+        checkConnection();
+    ?>
 
     <body class="no_image">
         <?php include("../includes/navbar.php");
-              require_once "../includes/functions_db.php";
+
         ?>
 
         <?php

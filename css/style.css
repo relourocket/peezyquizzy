@@ -329,6 +329,39 @@ body {
 .question {
     font-weight: bold;
 }
+/* ================================ DELETEQUIZ.PHP =============================== */
+.deleteConteneur{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 60em;
+
+    border: solid;
+}
+
+.quizDelete{
+    display: flex;
+    margin: auto;
+    margin-top: 1em;
+    width:20em;
+    align-items: center;
+
+}
+
+.deleteDescription{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 30em;
+    margin-right: 1em;
+    border: solid;
+    border-width: 0.05em;
+    border-radius:0.8em;
+
+
+
+}
+
 
 /* ========================================== PROFIL ======================================= */
 
@@ -396,13 +429,7 @@ td {
     margin: 30px;
 }
 
-/* [id^="libre"], [id^="qcm"] {
-    display: none;
-} */
 
-/* .show {
-    display: block !important;
-} */
 
 :invalid{
 
