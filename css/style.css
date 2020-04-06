@@ -335,8 +335,6 @@ body {
     flex-wrap: wrap;
     margin: auto;
     width: 60em;
-
-    border: solid;
 }
 
 .quizDelete{
@@ -358,10 +356,12 @@ body {
     border-width: 0.05em;
     border-radius:0.8em;
 
-
-
 }
 
+.btn{
+    background-color: #B040B5;
+    border: 2px solid #9E4873;
+}
 
 /* ========================================== PROFIL ======================================= */
 

@@ -245,13 +245,15 @@ function get_answers ($questionid) {
 }
 
 function get_score ($answers) {
+    // renvoie dans un tableau le score du joueur et le score total possible
+    
     $score = 0;
     $i = 0;
     $sql = connect_db();
     if ($sql != null) {
 
         // prepare and bind
-        $stmt = $sql->prepare("select contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
+        $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
         where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
         and question.question_id = contain.question_id and quizz.quizz_id = contain.quizz_id and quizz.quizz_id = ? and answer.answer_istrue = 1");
         $stmt->bind_param("s", $answers['idquizz']);
@@ -271,7 +273,7 @@ function get_score ($answers) {
             $i++;
         }
 
-        return $score;
+        return array($score, sizeof($awnswers_true));
 
     } else {
         die("No database found...");

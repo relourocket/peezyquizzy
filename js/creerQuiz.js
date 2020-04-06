@@ -115,6 +115,7 @@ function insertQuestion(){
     nouveauOption.textContent = "Nouvelle Question";
     selectQuestion.append(nouveauOption);
 
+    // on récupère les options avec une requête ajax vers le serveur
     fetch("../server_side/get_questions.php")
     .then(function(result){
         return result.json();
@@ -160,6 +161,7 @@ function changeCreateQuestion(questionID){
 }
 
 function insertCreateQuestion(questionID){
+    // insert un emplacement pour créer une nouvelle question
 
     let createQuestionDiv = document.createElement("div");
     createQuestionDiv.id = `createQuestion${questionID}`;
@@ -173,6 +175,8 @@ function insertCreateQuestion(questionID){
 }
 
 function insertEnonce(createQuestionDiv, questionID){
+    // insert l'énoncé de la nouvelle question
+
     let enonce = document.createElement("div");
     enonce.className = "form-group row";
 
@@ -214,7 +218,7 @@ function insertTypeQuestionSelection(newQuestionDiv, questionID){
     typeSelect.setAttribute("onchange", `selectType('${questionID}')`);
 
     //création des options
-    typeSelect.insertAdjacentHTML("beforeend", "<option selected value='typeQ'>Type de Question </option>");
+    typeSelect.insertAdjacentHTML("beforeend", "<option value='' selected disabled>Type de Question </option>");
 
     let option1 = document.createElement("option");
     option1.setAttribute("value", "libre");
@@ -266,6 +270,8 @@ function insertLibre(questionID){
 }
 
 function insertQcm(questionID, nbRep){
+    // insert un emplacement pour les réponses d'un QCM
+    
     let qcm = document.createElement("div");
     qcm.id = `qcm${questionID}`;
 

@@ -4,7 +4,7 @@
 <html>
 
     <?php
-        include "../includes/head.php"
+        include "../includes/head.php";
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
 
@@ -13,7 +13,6 @@
 
     <body>
         <?php include("../includes/navbar.php");
-              require_once "../includes/functions_db.php";
         ?>
 
         <h1 class="titre_profil">Votre profil</h1>
