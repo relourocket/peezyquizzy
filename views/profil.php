@@ -4,7 +4,7 @@
 <html>
 
     <?php
-        include "../includes/head.php"
+        include "../includes/head.php";
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
 

@@ -74,7 +74,7 @@
         <!-- Sélection type de question -->
         <div class="form-group row">
             <label for="type_question" class="col-sm-3 col-form-label">Type</label>
-            <select name="type_question" class="form-control col-sm-9" id="typeQuestion" onchange="select()">
+            <select name="type_question" class="form-control col-sm-9" id="typeQuestion" onchange="selectType()">
                 <option selected value="type_Q">Type de Question </option>
                 <option value="qcm">QCM </option>
                 <option value="libre">Réponse ouverte</option>
