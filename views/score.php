@@ -4,7 +4,7 @@
 <html>
 
     <?php
-        include "../includes/head.php"
+        include "../includes/head.php";
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
 
@@ -14,18 +14,21 @@
     <body>
 
         <?php include("../includes/navbar.php");
-              require_once "../includes/functions_db.php";
         ?>
 
         <div class="flex_column_div">
 
             <?php
             if (isset($_POST) && isset($_SESSION['login'])) {
-                $score = get_score ($_POST);
+                if(isset($_POST['numQuestion'])) unset($_POST['numQuestion']);
+
+                $scores = get_score3($_POST);
+                $scoreJoueur = $scores[0];
+                $scoreMaxPossible = $scores[1];
 
                 // TODO : temps
-                save_score ($score, 0, $_POST['idquizz'], $_SESSION['login']);
-                $best_score = get_best_score($_SESSION['login']);
+                save_score ($scoreJoueur, 0, $_POST['idquizz'], $_SESSION['login']);
+                $best_score = get_best_score($_SESSION['login'], $_POST["idquizz"]);
                 $best_time = get_best_time($_SESSION['login']);
             }
             else {
@@ -36,7 +39,7 @@
 
             <table>
                 <tr>
-                    <td class="purple_title">Votre Score : <?php  echo $score?></td> <td class="purple_title"> Meilleur Score : <?php echo $best_score ?></td>
+                    <td class="purple_title">Votre Score : <?php  echo "$scoreJoueur / $scoreMaxPossible"?></td> <td class="purple_title"> Meilleur Score : <?php echo "$best_score / $scoreMaxPossible" ?></td>
                 </tr>
 
                 <tr>

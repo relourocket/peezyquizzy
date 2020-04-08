@@ -9,53 +9,60 @@
         require_once "../includes/functions.php";
 
         checkConnection();
+
+        if(isset($_POST)) var_dump($_POST);
+
     ?>
 
     <body class="no_image">
-        <?php include("../includes/navbar.php");
-
-        ?>
-
         <?php
-        if (isset($_GET['id'])) {
-            $questions = get_quizz_questions($_GET['id']);
-        }
+            include("../includes/navbar.php");
+
+            if (isset($_GET['id'])) {
+                $quiz = get_quiz($_GET['id']);
+
+                $affichage;
+                switch ($quiz[6]){
+                    case 1:
+                        $affichage = "progressif";
+                        break;
+                    case 0:
+                        $affichage = "bloc";
+                        break;
+                }
+            }
         ?>
 
         <div class="quizConteneur">
-           <?php echo "<h1 class='titre_theme'>" . $questions[0][2] . "</h1>
-            <div class='desc_theme'>Description : " . $questions[0][4] . " </div>" ?>
+           <?php echo "<h1 class='titre_theme'>" . $quiz[2] . "</h1>
+            <div class='desc_theme'>Description : " . $quiz[4] . " </div>"; ?>
 
-            <form method="post" action="./score.php" class="quizForm">
+            <!-- début du form ici -->
 
                 <?php
-                    $i = 0; //index pour la question
-                    $indexRadio = 0; //index pour répertorier les radios correctement
-                    foreach ($questions as $key => $value) {
-                        $answers = get_answers($i+1);
-                        echo "<label class='question' for='question" .$i ."'> <span class='purple_title'>" .  $questions[$i][12] . ". </span>" . $questions[$i][9] . "</label>";
-                        if (strcmp($answers[0][1], "libre") == 0) {
-                            echo "<input type='text' class='form-control' id='question" .$i ."' name='". $i ."'>";
-                        }
-                        else if (strcmp($answers[0][1], "radio") == 0) {
-                            $j = 0; //index des réponses pour les radios
-                            foreach ($answers as $key2 => $value2) {
-                                echo "<div>
-                                          <input type='radio' name='" . $i . "' id='rep" .$indexRadio ."'value= '" . $answers[$j][4] . "'>
-                                          <label for= 'rep" .$indexRadio ."'>". $answers[$j][4] ."</label>
-                                    </div>";
-                                $j++;
-                                $indexRadio++;
-                            }
-                        }
-                        $i++;
+                    // affichage si bloc
+                    if(strcmp($affichage, "bloc")==0){
+                        $questions = get_quizz_questions($_GET['id']);
+                        affichageQuizBloc($questions);
                     }
 
-                    echo "<input type='hidden' name='idquizz' value='" .$_GET["id"] ."'>";
+                    // affichage si progressif
+                    elseif(strcmp($affichage, "progressif")==0){
+                        $idQuiz = $_GET['id'];
+                        $numQuestion;
+                        if(!isset($_POST["numQuestion"])){
+                            $numQuestion = 0;
+                        }
+                        else{
+                            $numQuestion = $_POST["numQuestion"];
+                        }
+
+                        affichageQuizProgressif($idQuiz, $numQuestion);
+                    }
                 ?>
 
 
-                <button class="btn btn_form green" type="submit">Envoyer les réponses </button>
+                <button class="btn btn_violet btn_form green" type="submit">Envoyer les réponses </button>
 
             </form>
 

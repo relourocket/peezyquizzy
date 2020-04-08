@@ -32,7 +32,7 @@
                                 <div>Titre : {$titre}</div>    <div>Theme : $themeName</div>
                           </div>
                           <div class='deleteBtn{$idQuiz}'>
-                                <button class='btn' onclick='deleteQuiz({$idQuiz})'>Supprimer </button>
+                                <button class='btn deleteBtn' onclick='deleteQuiz({$idQuiz})'>Supprimer </button>
                           </div>";
                     echo "</div>";
                 }
