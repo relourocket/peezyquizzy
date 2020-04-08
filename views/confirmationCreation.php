@@ -15,12 +15,12 @@
           $ok = false;
           $typeSave;
           if(isset($_POST["questionSeule"])&& isset($_POST["enonceQ0"]) && isset($_POST["typeQuestionQ0"])){
-              // saveAllQuestions($_POST);
+              saveAllQuestions($_POST);
               $typeSave = "question";
               $ok = true;
           }
           elseif(isset($_POST) && isset($_POST["theme"])){
-               // saveQuiz($_POST);
+               saveQuiz($_POST);
                $typeSave = "quiz";
                $ok = true;
           }
@@ -47,7 +47,7 @@
              ?>
 
              <br>
-             <a class="btn green btn_retour_admin" href="#">Retour à la page de gestion</a>
+             <a class="btn green btn_retour_admin" href="../views/accueilAdmin.php">Retour à la page de gestion</a>
         </div>
     </body>
 </html>
