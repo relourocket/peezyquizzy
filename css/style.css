@@ -233,7 +233,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 40em;
+    margin-left: 20px;
+    width: 80%;
 
 
 }
