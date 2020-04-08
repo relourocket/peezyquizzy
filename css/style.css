@@ -229,6 +229,29 @@ body {
     border:solid;
 }
 
+/* ================================= CREERQUESTION.PHP =================================== */
+.creationQuestion{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 40em;
+
+
+}
+
+/* ================================= CONFIRMATIONCREATION.PHP =================================== */
+.confConteneur{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 2em;
+    width: 35em;
+}
+
+.btn_retour_admin{
+    font-size: 1.5em;
+    color: white;
+}
 /* ============================= DESCRIPTIONQUIZ.PHP ===================================== */
 
 .descriptionConteneur
@@ -341,8 +364,6 @@ body {
     flex-wrap: wrap;
     margin: auto;
     width: 60em;
-
-    border: solid;
 }
 
 .quizDelete{
@@ -364,10 +385,12 @@ body {
     border-width: 0.05em;
     border-radius:0.8em;
 
-
-
 }
 
+.btn_violet{
+    background-color: #B040B5;
+    border: 2px solid #9E4873;
+}
 
 /* ========================================== PROFIL ======================================= */
 

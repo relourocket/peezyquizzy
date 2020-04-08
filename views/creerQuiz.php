@@ -26,7 +26,7 @@
             <h1>Créer un Quiz</h1>
 
             <!-- <form method="post" action="./accueilAdmin.php" onsubmit="checkForm()" enctype="multipart/form-data"> -->
-            <form method="post" action="./accueilAdmin.php" onsubmit="return checkForm()" enctype="multipart/form-data">
+            <form method="post" action="./confirmationCreation.php" onsubmit="return checkForm()" enctype="multipart/form-data">
 
                 <!-- informations sur le quizz -->
                 <div>

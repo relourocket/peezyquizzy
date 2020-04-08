@@ -21,8 +21,11 @@
         ?>
 
         <div class="descriptionConteneur">
-            <?php echo "<h1 class='titre_theme'>" . $quiz[0][2] ."</h1>" ?>
-            <?php echo "<div class='desc_theme'>Description : " . $quiz[0][4] ." </div>" ?>
+            <?php
+                echo "<h1 class='titre_theme'>" . $quiz[0][2] ."</h1>";
+                echo "<div class='desc_theme'>Description : " . $quiz[0][4] ." </div>";
+                // var_dump($quiz);
+             ?>
 
             <div>
                 <?php
