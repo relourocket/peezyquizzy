@@ -35,7 +35,7 @@
                         $answers = get_answers($i+1);
                         echo "<label class='question' for='question" .$i ."'> <span class='purple_title'>" .  $questions[$i][12] . ". </span>" . $questions[$i][9] . "</label>";
                         if (strcmp($answers[0][1], "libre") == 0) {
-                            echo "<input type='text' id='question" .$i ."' name='". $i ."'>";
+                            echo "<input type='text' class='form-control' id='question" .$i ."' name='". $i ."'>";
                         }
                         else if (strcmp($answers[0][1], "radio") == 0) {
                             $j = 0; //index des réponses pour les radios

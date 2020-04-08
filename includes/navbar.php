@@ -2,9 +2,12 @@
 
 <html>
 
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
     <body>
         <nav class="navbar navbar-expand navbar-light bg-light">
-
             <div class="flex_nav">
                 <div id="navigation">
                     <a class="navbar-brand" href="choixTheme.php">QueezyPeezy</a>
