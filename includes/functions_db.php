@@ -99,6 +99,8 @@ function is_admin($login){
 
 }
 
+
+
 function get_all_themes () {
     $sql = connect_db();
     if ($sql != null) {
@@ -135,6 +137,25 @@ function get_all_themes_names () {
         return $names;
 
     } else {
+        die("No database found...");
+    }
+}
+
+function get_quiz($idQuiz){
+    $sql = connect_db();
+    if($sql != null){
+        $stmt = $sql->prepare("SELECT * FROM quizz WHERE quizz_id=?");
+        $stmt->bind_param("s", $idQuiz);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $quiz = $result->fetch_all();
+        $stmt->close();
+
+        return $quiz[0];
+    }
+
+    else {
         die("No database found...");
     }
 }
@@ -192,6 +213,7 @@ function get_theme_by_id($id){
         die("No database found...");
     }
 }
+
 function get_all_questions(){
     $sql = connect_db();
     if($sql!=null){
@@ -210,7 +232,7 @@ function get_quizz_questions ($quizzid) {
     $sql = connect_db();
     if ($sql != null) {
         // prepare and bind
-        $stmt = $sql->prepare("select * from quizz, question, contain where quizz.quizz_id = ? and quizz.quizz_id = contain.quizz_id and question.question_id = contain.question_id");
+        $stmt = $sql->prepare("SELECT * from quizz, question, contain where quizz.quizz_id = ? and quizz.quizz_id = contain.quizz_id and question.question_id = contain.question_id");
         $stmt->bind_param("s", $quizz);
         $quizz = $quizzid;
         $stmt->execute();
@@ -219,6 +241,26 @@ function get_quizz_questions ($quizzid) {
         $stmt->close();
 
         return $questions;
+
+    } else {
+        die("No database found...");
+    }
+}
+
+function get_quiz_question_by_id($idQuiz, $idQuestion){
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("SELECT question.question_id, question.question_type, question.question_enonce, contain.question_numero
+            from quizz, question, contain
+            where quizz.quizz_id = ? and question.question_id=? and quizz.quizz_id = contain.quizz_id and question.question_id = contain.question_id ");
+        $stmt->bind_param("ii", $idQuiz, $idQuestion);
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $question = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        return $question;
 
     } else {
         die("No database found...");
@@ -243,15 +285,14 @@ function get_answers ($questionid) {
         die("No database found...");
     }
 }
-
-function get_score ($answers) {
+function get_score3 ($answers) {
     // renvoie dans un tableau le score du joueur et le score total possible
-    
+
     $score = 0;
     $i = 0;
+
     $sql = connect_db();
     if ($sql != null) {
-
         // prepare and bind
         $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
         where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
@@ -259,23 +300,87 @@ function get_score ($answers) {
         $stmt->bind_param("s", $answers['idquizz']);
         $stmt->execute();
         $result = $stmt->get_result(); // get the mysqli result
-        $awnswers_true = $result->fetch_all(); // fetch data
+        $answers_true = $result->fetch_all(); // fetch data
         $stmt->close();
 
+        // on trie les clés par ordre croissant pour comparer les questions/reponses
+        ksort($answers);
+        unset($answers["idquizz"]); //unset pour éviter de gérer l'id du quiz dans la recherche
 
         foreach ($answers as $answer) {
-            if ($i < count($answers)-1) {
+            if ($i < count($answers)) {
                 //strcmp() renvoie 0 si les string sont égales
-                if (strcmp(strtolower($answer), strtolower($awnswers_true[$i][1])) == 0) {
+                if (strcmp(strtolower($answer), strtolower($answers_true[$i][1])) == 0) {
                     $score++;
                 }
             }
             $i++;
         }
 
-        return array($score, sizeof($awnswers_true));
+        return array($score, sizeof($answers_true));
+    }
+    else {
+        die("No database found...");
+    }
+}
+function get_score2 ($id) {
+    // renvoie dans un tableau le score du joueur et le score total possible
 
-    } else {
+    $score = 0;
+    $i = 0;
+
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
+        where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
+        and question.question_id = contain.question_id and quizz.quizz_id = contain.quizz_id and quizz.quizz_id = ? and answer.answer_istrue = 1");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $answers_true = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        return $answers_true;
+    }
+    else {
+        die("No database found...");
+    }
+}
+function get_score ($answers) {
+    // renvoie dans un tableau le score du joueur et le score total possible
+
+    $score = 0;
+    $i = 1;
+
+    $sql = connect_db();
+    if ($sql != null) {
+        // prepare and bind
+        $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
+        where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
+        and question.question_id = contain.question_id and quizz.quizz_id = contain.quizz_id and quizz.quizz_id = ? and answer.answer_istrue = 1");
+        $stmt->bind_param("s", $answers['idquizz']);
+        $stmt->execute();
+        $result = $stmt->get_result(); // get the mysqli result
+        $answers_true = $result->fetch_all(); // fetch data
+        $stmt->close();
+
+        // on trie les clés par ordre croissant pour comparer les questions/reponses
+        ksort($answers);
+
+        foreach ($answers as $answer) {
+            if ($i < count($answers)-1) {
+                //strcmp() renvoie 0 si les string sont égales
+                if (strcmp(strtolower($answer), strtolower($answers_true[$i][1])) == 0) {
+                    $score++;
+                }
+            }
+            $i++;
+        }
+
+        return array($score, sizeof($answers_true));
+    }
+    else {
         die("No database found...");
     }
 }
@@ -311,12 +416,12 @@ function save_score ($points, $temps, $quizzid, $pseudo) {
     }
 }
 
-function get_best_score ($user) {
+function get_best_score ($user, $idQuiz) {
     $sql = connect_db();
     if ($sql != null) {
         // prepare and bind
-        $stmt = $sql->prepare("SELECT max(score_points) FROM score WHERE score_user = ?");
-        $stmt->bind_param("i", $userid);
+        $stmt = $sql->prepare("SELECT max(score_points) FROM score WHERE score_user = ? and score_quizz=?");
+        $stmt->bind_param("ii", $userid, $idQuiz);
         $userid = get_user_id($user)[0][0];
         $stmt->execute();
         $result = $stmt->get_result(); // get the mysqli result

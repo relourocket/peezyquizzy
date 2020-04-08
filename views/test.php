@@ -2,6 +2,7 @@
     include "../includes/functions_db.php";
     include "../includes/functions.php";
 
-    $a = get_quizz_questions(2);
+    
+    $a = get_score3(1);
     var_dump($a);
  ?>

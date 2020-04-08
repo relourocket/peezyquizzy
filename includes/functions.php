@@ -162,4 +162,157 @@ function convertDifficulte($difficulte){
             break;
     }
 }
+
+function affichageQuizProgressif($idQuiz, $numQuestion){
+    // affiche les questions et réponses d'un quiz page par page
+
+    $questions = get_quizz_questions($idQuiz);
+    $idQuestion = $questions[$numQuestion][7];
+    $answers = get_answers($idQuestion);
+
+    $enonceQuestion = $questions[$numQuestion][9];
+    $typeQuestion = $questions[$numQuestion][8];
+    $numLabel = $numQuestion + 1;
+    $numNextQuestion = $numQuestion + 1;
+
+    $nbRep;
+    switch ($questions[$numQuestion][5]){
+        case 1:
+            $difficulte = "facile";
+            $nbRep = 3;
+            break;
+        case 2:
+            $difficulte = "moyen";
+            $nbRep = 5;
+            break;
+        case 3:
+            $difficulte = "difficile";
+            $nbRep = 8;
+            break;
+    }
+
+    if($numQuestion+1 == sizeof($questions)){
+        echo "<form method='post' action='./score.php' class='quizForm'>";
+    }
+    else{
+        echo "<form method='post' action='./jouerQuiz.php?id={$idQuiz}' class='quizForm'>";
+    }
+
+    echo "<label class='question' for='question" .$numQuestion ."'> <span class='purple_title'>".  $numLabel . ". </span>" . $enonceQuestion . "</label><br>";
+
+    // affichage de l'input
+    if(strcmp($typeQuestion, "libre")==0){
+        echo "<input type='text' id='question{$numQuestion}' name={$numQuestion}>";
+        echo "<br>";
+    }
+    elseif(strcmp($typeQuestion, "radio")==0){
+        $indexUtilise = pickRandomAnswer($answers, $nbRep);
+
+        // affichage des réponses
+        $indexRadio = 0;
+        foreach ($indexUtilise as $i) {
+            echo "<div>
+                      <input type='radio' name='{$numQuestion}' id='rep{$indexRadio}' value= '{$answers[$i][4]}'>
+                      <label for= 'rep{$indexRadio}'>". $answers[$i][4] ."</label>
+                </div>";
+            $indexRadio++;
+        }
+    }
+
+    // passage en hidden pour les prochaines pages
+    if($numQuestion==0){
+        echo "<input type='hidden' name='idquizz' value='{$idQuiz}'>";
+        echo "<input type='hidden' name='numQuestion' value='{$numNextQuestion}'>";
+    }
+
+    // passage en hidden des précédents résultats
+    foreach($_POST as $key=>$value){
+        if(strcmp($key, "numQuestion")==0){
+            echo "<input type='hidden' name='{$key}' value={$numNextQuestion}>";
+        }
+        else{
+            echo "<input type='hidden' name='{$key}' value='{$value}'>";
+        }
+    }
+}
+
+function affichageQuizBloc($questions){
+    // affiche toutes les questions et réponses d'un quiz sur la même page html
+
+    $indexRadio = 0; //index pour répertorier les radios correctement
+    $nbRep;
+
+    foreach ($questions as $q) {
+        $idQuestion = $q[7];
+
+        switch ($q[5]){
+            case 1:
+                $difficulte = "facile";
+                $nbRep = 3;
+                break;
+            case 2:
+                $difficulte = "moyen";
+                $nbRep = 5;
+                break;
+            case 3:
+                $difficulte = "difficile";
+                $nbRep = 8;
+                break;
+        }
+
+        $answers = get_answers($idQuestion);
+        $numeroQuestion = $q[12];
+        $enonceQuestion = $q[9];
+
+        echo "<form method='post' action='./score.php' class='quizForm'>";
+        echo "<label class='question' for='question" .$numeroQuestion ."'> <span class='purple_title'>" .  $numeroQuestion . ". </span>" . $enonceQuestion . "</label><br>";
+
+        if (strcmp($answers[0][1], "libre") == 0) {
+            echo "<input type='text' id='question" .$numeroQuestion ."' name='". $numeroQuestion ."'>";
+            echo "<br>";
+        }
+        else if (strcmp($answers[0][1], "radio") == 0) {
+            $indexUtilise = pickRandomAnswer($answers, $nbRep);
+
+            // affichage des réponses
+            foreach ($indexUtilise as $i) {
+                echo "<div>
+                          <input type='radio' name='" . $numeroQuestion . "' id='rep" .$indexRadio ."'value= '" . $answers[$i][4] . "'>
+                          <label for= 'rep" .$indexRadio ."'>". $answers[$i][4] ."</label>
+                    </div>";
+                $indexRadio++;
+            }
+        }
+    }
+
+    echo "<input type='hidden' name='idquizz' value='" .$_GET["id"] ."'>";
+}
+
+function pickRandomAnswer($answers, $nbRep){
+    // renvoie les indices des réponses utilisées dans un ordre aléatoire
+
+    $indexUtilise = array();
+    $nbUtilise = 1;
+
+    // on trouve l'indice de la réponse juste
+    for($iAnswer = 0; $iAnswer < sizeof($answers); $iAnswer++){
+        if($answers[$iAnswer][5]==1){
+            array_push($indexUtilise, $iAnswer);
+        }
+    }
+    // sélection aléatoire de réponses fausses
+    while($nbUtilise < $nbRep){
+        $rng = rand(0, sizeof($answers)-1); //borne supérieure inclusive
+
+        if(!in_array($rng, $indexUtilise)){
+            array_push($indexUtilise, $rng);
+            $nbUtilise++;
+        }
+    }
+
+    // aléatorisation des réponses
+    shuffle($indexUtilise);
+
+    return $indexUtilise;
+}
 ?>

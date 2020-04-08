@@ -9,103 +9,60 @@
         require_once "../includes/functions.php";
 
         checkConnection();
+
+        if(isset($_POST)) var_dump($_POST);
+
     ?>
 
     <body class="no_image">
-        <?php include("../includes/navbar.php");
-
-        ?>
-
         <?php
-        if (isset($_GET['id'])) {
-            $questions = get_quizz_questions($_GET['id']);
-        }
+            include("../includes/navbar.php");
+
+            if (isset($_GET['id'])) {
+                $quiz = get_quiz($_GET['id']);
+
+                $affichage;
+                switch ($quiz[6]){
+                    case 1:
+                        $affichage = "progressif";
+                        break;
+                    case 0:
+                        $affichage = "bloc";
+                        break;
+                }
+            }
         ?>
 
         <div class="quizConteneur">
-           <?php echo "<h1 class='titre_theme'>" . $questions[0][2] . "</h1>
-            <div class='desc_theme'>Description : " . $questions[0][4] . " </div>"; ?>
+           <?php echo "<h1 class='titre_theme'>" . $quiz[2] . "</h1>
+            <div class='desc_theme'>Description : " . $quiz[4] . " </div>"; ?>
 
-            <form method="post" action="./score.php" class="quizForm">
+            <!-- début du form ici -->
 
                 <?php
-                    $indexRadio = 0; //index pour répertorier les radios correctement
-                    $nbQuestion;
-
-                    foreach ($questions as $q) {
-                        $idQuestion = $q[7];
-
-                        switch ($q[6]){
-                            case 1:
-                                $affichage = "progressif";
-                            case 0:
-                                $affichage = "bloc";
-                        }
-
-                        switch ($q[5]){
-                            case 1:
-                                $difficulte = "facile";
-                                $nbQuestion = 3;
-                                break;
-                            case 2:
-                                $difficulte = "moyen";
-                                $nbQuestion = 5;
-                                break;
-                            case 3:
-                                $difficulte = "difficile";
-                                $nbQuestion = 8;
-                                break;
-
-                        }
-
-                        $answers = get_answers($idQuestion);
-                        $numeroQuestion = $q[12];
-                        $enonceQuestion = $q[9];
-
-                        echo "<label class='question' for='question" .$numeroQuestion ."'> <span class='purple_title'>" .  $numeroQuestion . ". </span>" . $enonceQuestion . "</label>";
-
-                        if (strcmp($answers[0][1], "libre") == 0) {
-                            echo "<input type='text' id='question" .$numeroQuestion ."' name='". $numeroQuestion ."'>";
-                            echo "<br>";
-                        }
-                        else if (strcmp($answers[0][1], "radio") == 0) {
-
-                            $indexUtilise = array();
-                            $nbUtilise = 1;
-
-                            // on trouve la réponse juste
-                            for($iAnswer = 0; $iAnswer < sizeof($answers); $iAnswer++){
-                                if($answers[$iAnswer][5]==1){
-                                    array_push($indexUtilise, $iAnswer);
-                                }
-                            }
-                            while($nbUtilise < $nbQuestion){
-                                $rng = rand(0, sizeof($answers)-1); //borne supérieure inclusive
-
-                                if(!in_array($rng, $indexUtilise)){
-                                    array_push($indexUtilise, $rng);
-                                    $nbUtilise++;
-                                }
-                            }
-                            
-                            // aléatorisation des réponses
-                            shuffle($indexUtilise);
-
-                            foreach ($indexUtilise as $i) {
-                                echo "<div>
-                                          <input type='radio' name='" . $numeroQuestion . "' id='rep" .$indexRadio ."'value= '" . $answers[$i][4] . "'>
-                                          <label for= 'rep" .$indexRadio ."'>". $answers[$i][4] ."</label>
-                                    </div>";
-                                $indexRadio++;
-                            }
-                        }
+                    // affichage si bloc
+                    if(strcmp($affichage, "bloc")==0){
+                        $questions = get_quizz_questions($_GET['id']);
+                        affichageQuizBloc($questions);
                     }
 
-                    echo "<input type='hidden' name='idquizz' value='" .$_GET["id"] ."'>";
+                    // affichage si progressif
+                    elseif(strcmp($affichage, "progressif")==0){
+                        $idQuiz = $_GET['id'];
+                        $numQuestion;
+                        if(!isset($_POST["numQuestion"])){
+                            $numQuestion = 0;
+                        }
+                        else{
+                            $numQuestion = $_POST["numQuestion"];
+                        }
+
+                        affichageQuizProgressif($idQuiz, $numQuestion);
+                    }
                 ?>
 
 
-                <button class="btn btn_form green" type="submit">Envoyer les réponses </button>
+                <button class="btn btn_violet btn_form green" type="submit">Envoyer les réponses </button>
 
             </form>
 

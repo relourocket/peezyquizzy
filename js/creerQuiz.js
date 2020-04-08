@@ -86,6 +86,7 @@ function insertQuestion(){
     // select pour choisir parmi toutes les questions
     let selectQuestionDiv = document.createElement("div");
     selectQuestionDiv.className = "form-group row";
+    selectQuestionDiv.id = "divSelectQuestion".concat(questionID)
 
     let selectQuestionLabel = document.createElement("label");
     selectQuestionLabel.className = "col-form-label col-sm-4";
@@ -191,7 +192,7 @@ function insertEnonce(createQuestionDiv, questionID){
     enonceInput.className = "form-control col-sm-9";
     enonceInput.setAttribute("type", "text");
     enonceInput.setAttribute("name", `enonce${questionID}`);
-    enonceInput.setAttribute("id", "enonce");
+    enonceInput.setAttribute("id", `enonce${questionID}`);
 
     // insertion
     enonce.append(enonceLabel);
@@ -271,7 +272,7 @@ function insertLibre(questionID){
 
 function insertQcm(questionID, nbRep){
     // insert un emplacement pour les réponses d'un QCM
-    
+
     let qcm = document.createElement("div");
     qcm.id = `qcm${questionID}`;
 
