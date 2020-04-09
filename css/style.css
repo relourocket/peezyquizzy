@@ -363,15 +363,14 @@ body {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    width: 60em;
 }
 
 .quizDelete{
     display: flex;
     margin: auto;
     margin-top: 1em;
-    width:20em;
     align-items: center;
+    width: 90%;
 
 }
 
@@ -379,10 +378,10 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 30em;
+    width: 90%;
     margin-right: 1em;
     border: solid;
-    border-width: 0.05em;
+    border-width: 0.09em;
     border-radius:0.8em;
 
 }
@@ -537,5 +536,11 @@ td {
     .quizConteneur {
         width: auto;
         margin-left: 30px;
+    }
+}
+
+@media screen and (max-width: 945px) {
+    .quizDelete {
+        flex-direction: column;
     }
 }

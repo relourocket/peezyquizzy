@@ -29,10 +29,11 @@
 
                     echo "<div class='quizDelete' id='quiz{$idQuiz}'>";
                     echo "<div class='deleteDescription' id='description{$idQuiz}'>
-                                <div>Titre : {$titre}</div>    <div>Theme : $themeName</div>
+                                <div class='titre_theme green_title'>Titre : {$titre}</div>    
+                                <div class='desc_theme'>Theme : $themeName</div>
                           </div>
                           <div class='deleteBtn{$idQuiz}'>
-                                <button class='btn deleteBtn' onclick='deleteQuiz({$idQuiz})'>Supprimer </button>
+                                <button class='btn deleteBtn purple btn_form' onclick='deleteQuiz({$idQuiz})'>Supprimer </button>
                           </div>";
                     echo "</div>";
                 }
