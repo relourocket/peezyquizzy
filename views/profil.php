@@ -29,15 +29,15 @@
                     if ($i%2 == 0) {
                         echo "
                         <a class='scoreQuiz quizButton green' href='descriptionQuiz.php?id=" . $scores[$i][0] . "'>
-                            <div class='nom_quiz'>" . $scores[$i][1] . "</div>
-                            <div>" . $scores[$i][2] . "</div>
+                            <div class='nom_quiz'>" .$scores[$i][1] . "</div>
+                            <div> {$scores[$i][2]} / {$scores[$i][3]} </div>
                         </a> ";
                     }
                     else {
                         echo "
                         <a class='scoreQuiz quizButton purple' href='descriptionQuiz.php?id=" . $scores[$i][0] . "'>
                             <div class='nom_quiz'>" . $scores[$i][1] . "</div>
-                            <div>" . $scores[$i][2] . "</div>
+                            <div>{$scores[$i][2]} / {$scores[$i][3]}</div>
                         </a> ";
                     }
                     $i++;

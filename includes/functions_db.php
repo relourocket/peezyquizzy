@@ -378,7 +378,7 @@ function get_all_scores_by_user ($user) {
     $sql = connect_db();
     if ($sql != null) {
         // prepare and bind
-        $stmt = $sql->prepare("SELECT quizz.quizz_id, quizz.quizz_titre, MAX(score_points) from score, quizz where quizz.quizz_id = score.score_quizz and score_user = ? GROUP BY quizz.quizz_id");
+        $stmt = $sql->prepare("SELECT quizz.quizz_id, quizz.quizz_titre, MAX(score_points), quizz.quizz_nbquestions from score, quizz, contain where quizz.quizz_id = score.score_quizz and score_user = ? GROUP BY quizz.quizz_id");
         $stmt->bind_param("i", $userid);
         $userid = get_user_id($user)[0][0];
         $stmt->execute();
