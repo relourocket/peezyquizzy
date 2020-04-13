@@ -161,12 +161,20 @@ body {
     color: black;
 }
 
+.titre_centre_div{
+    display: flex;
+    margin: auto;
+    margin-top:1em;
+    width:20em;
+    justify-content: center;
+    font-weight: bold;
+}
 .choixConteneurTheme
 {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    margin-top: 3em;
+    margin-top: 1em;
     flex-direction: row;
     align-content: center;
     width: 52%;
@@ -225,20 +233,30 @@ body {
     display: flex;
     flex-direction: column;
     width: 40em;
-    border:solid;
+}
+
+.removeBtn{
+    margin-bottom: 2em;
+}
+.repQcm{
+    margin-bottom: 1.5em;
 }
 
 /* ================================= CREERQUESTION.PHP =================================== */
-.creationQuestion{
+.conteneurQuestion{
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-left: 20px;
-    width: 80%;
-
-
+    margin-top: 2em;
+    width: 70em;
+    justify-content: center;
 }
 
+#createQuestionDescription{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
 /* ================================= CONFIRMATIONCREATION.PHP =================================== */
 .confConteneur{
     display: flex;
@@ -355,7 +373,7 @@ body {
     margin-top: 10px;
 }
 
-.question {
+.jouerQuestion {
     font-weight: bold;
 }
 /* ================================ DELETEQUIZ.PHP =============================== */

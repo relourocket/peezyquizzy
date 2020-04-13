@@ -285,7 +285,7 @@ function get_answers ($questionid) {
         die("No database found...");
     }
 }
-function get_score3 ($answers) {
+function get_score ($answers) {
     // renvoie dans un tableau le score du joueur et le score total possible
 
     $score = 0;
@@ -323,67 +323,6 @@ function get_score3 ($answers) {
         die("No database found...");
     }
 }
-function get_score2 ($id) {
-    // renvoie dans un tableau le score du joueur et le score total possible
-
-    $score = 0;
-    $i = 0;
-
-    $sql = connect_db();
-    if ($sql != null) {
-        // prepare and bind
-        $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
-        where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
-        and question.question_id = contain.question_id and quizz.quizz_id = contain.quizz_id and quizz.quizz_id = ? and answer.answer_istrue = 1");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        $result = $stmt->get_result(); // get the mysqli result
-        $answers_true = $result->fetch_all(); // fetch data
-        $stmt->close();
-
-        return $answers_true;
-    }
-    else {
-        die("No database found...");
-    }
-}
-function get_score ($answers) {
-    // renvoie dans un tableau le score du joueur et le score total possible
-
-    $score = 0;
-    $i = 1;
-
-    $sql = connect_db();
-    if ($sql != null) {
-        // prepare and bind
-        $stmt = $sql->prepare("SELECT contain.question_numero, answer.answer_enonce from question, answer, belongs, contain, quizz
-        where answer.answer_id = belongs.answer_id and question.question_id = belongs.question_id
-        and question.question_id = contain.question_id and quizz.quizz_id = contain.quizz_id and quizz.quizz_id = ? and answer.answer_istrue = 1");
-        $stmt->bind_param("s", $answers['idquizz']);
-        $stmt->execute();
-        $result = $stmt->get_result(); // get the mysqli result
-        $answers_true = $result->fetch_all(); // fetch data
-        $stmt->close();
-
-        // on trie les clés par ordre croissant pour comparer les questions/reponses
-        ksort($answers);
-
-        foreach ($answers as $answer) {
-            if ($i < count($answers)-1) {
-                //strcmp() renvoie 0 si les string sont égales
-                if (strcmp(strtolower($answer), strtolower($answers_true[$i][1])) == 0) {
-                    $score++;
-                }
-            }
-            $i++;
-        }
-
-        return array($score, sizeof($answers_true));
-    }
-    else {
-        die("No database found...");
-    }
-}
 
 function get_user_id ($pseudo) {
     $sql = connect_db();
@@ -403,11 +342,11 @@ function get_user_id ($pseudo) {
     }
 }
 
-function save_score ($points, $temps, $quizzid, $pseudo) {
+function save_score ($points, $quizzid, $pseudo) {
     $sql = connect_db();
     if ($sql != null) {
-        $stmt = $sql->prepare("INSERT INTO score VALUES (0, ?, ?, ?, ?)");
-        $stmt->bind_param("iiii", $userid, intval($quizzid), $temps, $points);
+        $stmt = $sql->prepare("INSERT INTO score VALUES (0, ?, ?, ?)");
+        $stmt->bind_param("iii", $userid, intval($quizzid), $points);
         $userid = get_user_id($pseudo)[0][0];
         $stmt->execute();
         $stmt->close();
@@ -429,25 +368,6 @@ function get_best_score ($user, $idQuiz) {
         $stmt->close();
 
         return $best_score[0][0];
-
-    } else {
-        die("No database found...");
-    }
-}
-
-function get_best_time ($user) {
-    $sql = connect_db();
-    if ($sql != null) {
-        // prepare and bind
-        $stmt = $sql->prepare("SELECT min(score_temps) FROM score WHERE score_user = ?");
-        $stmt->bind_param("i", $userid);
-        $userid = get_user_id($user)[0][0];
-        $stmt->execute();
-        $result = $stmt->get_result(); // get the mysqli result
-        $best_time = $result->fetch_all(); // fetch data
-        $stmt->close();
-
-        return $best_time[0][0];
 
     } else {
         die("No database found...");
@@ -542,7 +462,10 @@ function saveAllQuestions($data){
                 break;
         }
 
-        linkQuestionToQuiz($numeroQuestion);
+        if(!isset($_POST["questionSeule"])){
+            linkQuestionToQuiz($numeroQuestion);
+
+        }
         $numeroQuestion++;
     }
 }
@@ -677,8 +600,6 @@ function saveQuestionLibre ($enonce, $type, $rep_libre) {
         $stmt->execute();
 
         $stmt->close();
-
-
     }
 
     else {

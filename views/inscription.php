@@ -23,17 +23,17 @@
 
             <form method="POST" action="connexion.php?newuser=1" class="form_connexion">
                 <div class="form-group row">
-                    <label for="login">Login <span class="purple_title">*</span> </label>
+                    <label for="login">Login <span class="purple_title col">*</span> </label>
                     <input type="text" name="login" id="login" class="form-control" required>
                 </div>
 
                 <div class="form-group row">
-                    <label for="mdp">Mot de passe <span class="purple_title">*</span> </label>
+                    <label for="mdp">Mot de passe <span class="purple_title col">*</span> </label>
                     <input type="password" name="mdp" id="mdp" class="form-control" required>
                 </div>
 
                 <div class="form-group row">
-                    <label for="mdpConfirm">Confirmation du mot de passe <span class="purple_title">*</span> </label>
+                    <label for="mdpConfirm">Confirmation du mot de passe <span class="purple_title col">*</span> </label>
                     <input type="password" name="mdpConfirm" id="mdpConfirm" class="form-control" required>
                 </div>
 

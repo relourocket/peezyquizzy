@@ -18,9 +18,11 @@
         <?php
         if (isset($_GET['id'])) {
             $quiz = get_all_quizz_per_theme($_GET['id']);
+            $theme = get_theme_by_id($_GET['id']);
         }
         ?>
 
+        <h1 class="titre_centre_div">Quiz du thème <?php echo $theme[1];?></h1>
         <div class="choixConteneur">
             <?php
                 if (count($quiz) > 0) {

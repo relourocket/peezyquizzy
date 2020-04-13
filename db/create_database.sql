@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS score (
 	score_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     score_user INTEGER NOT NULL,
     score_quizz INTEGER NOT NULL,
-    score_temps INTEGER NOT NULL, #En secondes
     score_points INTEGER NOT NULL,
     FOREIGN KEY (score_user) REFERENCES users(user_id),
     FOREIGN KEY (score_quizz) REFERENCES quizz(quizz_id)
@@ -62,5 +61,3 @@ CREATE TABLE IF NOT EXISTS belongs (
     FOREIGN KEY (question_id) REFERENCES question(question_id),
     FOREIGN KEY (answer_id) REFERENCES answer(answer_id)
 );
-
-

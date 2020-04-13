@@ -198,7 +198,7 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
         echo "<form method='post' action='./jouerQuiz.php?id={$idQuiz}' class='quizForm'>";
     }
 
-    echo "<label class='question' for='question" .$numQuestion ."'> <span class='purple_title'>".  $numLabel . ". </span>" . $enonceQuestion . "</label><br>";
+    echo "<label class='jouerQuestion' for='question" .$numQuestion ."'> <span class='purple_title'>".  $numLabel . ". </span>" . $enonceQuestion . "</label><br>";
 
     // affichage de l'input
     if(strcmp($typeQuestion, "libre")==0){
