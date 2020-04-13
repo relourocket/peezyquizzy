@@ -18,7 +18,7 @@
         <h1 class="titre_profil">Votre profil</h1>
 
         <?php
-        $scores = get_all_score($_SESSION['login']);
+        $scores = get_all_scores_by_user($_SESSION['login']);
         ?>
 
 
@@ -28,7 +28,7 @@
                 foreach ($scores as $key => $value) {
                     if ($i%2 == 0) {
                         echo "
-                        <a class='scoreQuiz quizButton green' href='descriptionQuiz.php?id=" . $scores[$i][0] . "'>
+                        <a class='scoreQuiz quizButton green' href='descriptionQuiz.php?id=" . $scores[$i][2] . "'>
                             <div class='nom_quiz'>" . $scores[$i][1] . "</div>
                             <div>" . $scores[$i][2] . "</div>
                         </a> ";
