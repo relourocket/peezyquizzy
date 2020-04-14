@@ -202,7 +202,7 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
 
     // affichage de l'input
     if(strcmp($typeQuestion, "libre")==0){
-        echo "<input type='text' id='question{$numQuestion}' name={$numQuestion}>";
+        echo "<input type='text' id='question{$numQuestion}' name={$numQuestion} required>";
         echo "<br>";
     }
     elseif(strcmp($typeQuestion, "radio")==0){
@@ -212,7 +212,7 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
         $indexRadio = 0;
         foreach ($indexUtilise as $i) {
             echo "<div>
-                      <input type='radio' name='{$numQuestion}' id='rep{$indexRadio}' value= '{$answers[$i][4]}'>
+                      <input type='radio' name='{$numQuestion}' id='rep{$indexRadio}' value= '{$answers[$i][4]}' required>
                       <label for= 'rep{$indexRadio}'>". $answers[$i][4] ."</label>
                 </div>";
             $indexRadio++;
@@ -228,6 +228,7 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
     // passage en hidden des précédents résultats
     foreach($_POST as $key=>$value){
         if(strcmp($key, "numQuestion")==0){
+            // passage du nouveau numéro de question en hidden
             echo "<input type='hidden' name='{$key}' value={$numNextQuestion}>";
         }
         else{
@@ -253,7 +254,7 @@ function affichageQuizBloc($questions, $difficulte){
         echo "<label class='question' for='question" .$numeroQuestion ."'> <span class='purple_title'>" .  $numeroQuestion . ". </span>" . $enonceQuestion . "</label><br>";
 
         if (strcmp($answers[0][1], "libre") == 0) {
-            echo "<input type='text' id='question" .$numeroQuestion ."' name='". $numeroQuestion ."'>";
+            echo "<input type='text' id='question" .$numeroQuestion ."' name='". $numeroQuestion ."' required>";
             echo "<br>";
         }
         else if (strcmp($answers[0][1], "radio") == 0) {
@@ -262,7 +263,7 @@ function affichageQuizBloc($questions, $difficulte){
             // affichage des réponses
             foreach ($indexUtilise as $i) {
                 echo "<div>
-                          <input type='radio' name='" . $numeroQuestion . "' id='rep" .$indexRadio ."'value= '" . $answers[$i][4] . "'>
+                          <input type='radio' name='" . $numeroQuestion . "' id='rep" .$indexRadio ."'value= '" . $answers[$i][4] . "' required>
                           <label for= 'rep" .$indexRadio ."'>". $answers[$i][4] ."</label>
                     </div>";
                 $indexRadio++;
