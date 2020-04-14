@@ -25,7 +25,6 @@
         <div class="flex_column_div">
             <h1>Créer un Quiz</h1>
 
-            <!-- <form method="post" action="./accueilAdmin.php" onsubmit="checkForm()" enctype="multipart/form-data"> -->
             <form method="post" action="./confirmationCreation.php" onsubmit="return checkForm()" enctype="multipart/form-data">
 
                 <!-- informations sur le quizz -->
@@ -64,6 +63,14 @@
 
                 <p>Les questions de votre nouveau quiz :</p>
                 <div id="addQuestion"></div>
+
+                <script type="text/javascript">
+                    let i;
+                    for(i =0; i < 10; i++){
+                        insertQuestion();
+                    }
+
+                </script>
 
                 <button  id="addQuestionBtn" class="btn btn_form purple" type="button" onclick="insertQuestion()">Ajouter une question</button>
 
