@@ -38,7 +38,7 @@
         <?php include("../includes/navbar.php");
               $themes = get_all_themes();
         ?>
-
+        <h1 class="titre_centre_div">Choix du thème</h1>
         <div class="choixConteneurTheme">
 
             <?php

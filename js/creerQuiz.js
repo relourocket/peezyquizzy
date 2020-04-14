@@ -134,7 +134,7 @@ function insertQuestion(){
     //création du bouton pour remove la question
     let removeBtn = document.createElement("button");
     removeBtn.innerHTML = "Effacer la question";
-    removeBtn.setAttribute("class", "removeBtn");
+    removeBtn.setAttribute("class", "removeBtn btn");
     removeBtn.setAttribute("id", "removeBtn".concat(questionID));
     removeBtn.setAttribute("onclick", `removeQuestion('${questionID}')`);
 
@@ -285,9 +285,11 @@ function insertQcm(questionID, nbRep){
 
 function insertQcmRep(qcmDiv, questionID, indiceRep){
     let repQCM = document.createElement("div");
-    repQCM.className = "form-group row";
+    repQCM.className = "repQcm";
     repQCM.id = `repQcm${indiceRep}${questionID}`;
 
+    let qcmRepDiv = document.createElement("div");
+    qcmRepDiv.className = "form-group row"
     // libellé de la rep
     // label
     let qcmLabel = document.createElement("label");
@@ -303,13 +305,13 @@ function insertQcmRep(qcmDiv, questionID, indiceRep){
     qcmInput.setAttribute("id", `rep${indiceRep}${questionID}`);
     qcmInput.required = true;
 
-    // choix si c'est la bonne rep
+    // choix si c'est la bonne réponse
     let justeDiv = document.createElement("div");
-    justeDiv.className = "col-sm-12 goodAnswer";
+    justeDiv.className = "form-group row goodAnswer";
 
     // label
     let justeLabel = document.createElement("label");
-    justeLabel.className = "col-sm-3";
+    justeLabel.className = "col-sm-2";
     justeLabel.setAttribute("for", `justeRep${indiceRep}${questionID}`);
     justeLabel.textContent = "Réponse juste  ";
 
@@ -324,12 +326,14 @@ function insertQcmRep(qcmDiv, questionID, indiceRep){
     justeInput.required = true;
 
     // insertion
-    repQCM.append(qcmLabel);
-    repQCM.append(qcmInput);
+    qcmRepDiv.append(qcmLabel);
+    qcmRepDiv.append(qcmInput);
 
     justeDiv.append(justeLabel);
     justeDiv.append(justeInput);
 
+
+    repQCM.append(qcmRepDiv);
     repQCM.append(justeDiv);
     qcmDiv.append(repQCM);
 }
@@ -394,12 +398,12 @@ function selectType(questionID){
 
     switch(type.val()){
         case "libre":
-            $("#".concat(questionID)).append(insertLibre(questionID));
+            $("#createQuestion".concat(questionID)).append(insertLibre(questionID));
             $("#qcm".concat(questionID)).remove();
             break;
 
         case "qcm":
-            $("#".concat(questionID)).append(insertQcm(questionID, 8));
+            $("#createQuestion".concat(questionID)).append(insertQcm(questionID, 8));
             $("#libre".concat(questionID)).remove();
             break;
 
@@ -456,8 +460,10 @@ function checkForm(){
             let idQuestion = this.id;
             let checkQcm = $(`#qcm${idQuestion}`).length;
             let checkLibre = $(`#libre${idQuestion}`).length;
+            let checkQuestion = $(`#selectQuestion${idQuestion}`).val() === "nouveau"; //bool
 
-            if(checkQcm != 1 && checkLibre != 1){
+            console.log(checkQuestion);
+            if(checkQuestion && checkQcm != 1 && checkLibre != 1){
                 isOk = false;
                 $("#erreur").empty();
                 $("#erreur").append("Certaines de vos questions ne contiennent pas de réponse(s) <br>");

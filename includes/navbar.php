@@ -3,30 +3,8 @@
 <html>
 
     <body>
-        <!-- <nav class="navbar navbar-expand navbar-light bg-light">
-            <div class="flex_nav">
-                <div id="navigation">
-                    <a class="navbar-brand" href="choixTheme.php">QueezyPeezy</a>
 
-                    <?php
-                       /* if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]==true){
-                            include "../includes/navbarGererJouer.php";
-                        }*/
-                    ?>
-
-                </div>
-
-                <div class="dropdown navbar-brand">
-                    <?php /*
-                        if(isset($_SESSION["login"])){
-                            include("../includes/navbarDropdown.php") ;
-                        }*/
-                    ?>
-                </div>
-            </div>
-        </nav> -->
-
-        <div class="navbar navbar-expand navbar-light bg-light">
+        <nav class="navbar navbar-expand navbar-light bg-light">
             <div class="navbar-inner flex_nav">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -37,11 +15,16 @@
 
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li><a class="navbar-brand" href="choixTheme.php">QueezyPeezy</li>
+                            <li>
+                                <a class="navbar-brand" href="choixTheme.php">QueezyPeezy</a>
+                            </li>
                             <li>
                                 <?php
                                  if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]==true){
-                                     include "../includes/navbarGererJouer.php";
+                                     include "../includes/navbarAdmin.php";
+                                 }
+                                 else{
+                                     include "../includes/navbarUtilisateur.php";
                                  }
                                 ?>
                             </li>
@@ -58,7 +41,7 @@
                     </div>
                 </div>
             </div>
-        </div><!-- /.navbar -->
+        </nav>
 
     </body>
 

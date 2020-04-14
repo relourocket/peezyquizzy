@@ -9,9 +9,6 @@
         require_once "../includes/functions.php";
 
         checkConnection();
-
-        if(isset($_POST)) var_dump($_POST);
-
     ?>
 
     <body class="no_image">
