@@ -140,7 +140,7 @@ body {
 .themeButton
 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     border: solid 2px black;
     border-radius: 0.3em;
