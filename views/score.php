@@ -7,6 +7,7 @@
         include "../includes/head.php";
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
+        var_dump($_POST);
 
         checkConnection();
     ?>
@@ -26,7 +27,7 @@
                 $scoreJoueur = $scores[0];
                 $scoreMaxPossible = $scores[1];
 
-                save_score ($scoreJoueur, $_POST['idquizz'], $_SESSION['login']);
+                save_score($scoreJoueur, $_POST['idquizz'], $_SESSION['login'], $_POST["difficulte"]);
                 $best_score = get_best_score($_SESSION['login'], $_POST["idquizz"]);
             }
             else {

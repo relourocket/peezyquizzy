@@ -8,6 +8,7 @@
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
 
+        var_dump($_POST);
         checkConnection();
     ?>
 
@@ -19,7 +20,7 @@
                 $quiz = get_quiz($_GET['id']);
 
                 $affichage;
-                switch ($quiz[6]){
+                switch ($quiz[5]){
                     case 1:
                         $affichage = "progressif";
                         break;
@@ -27,6 +28,8 @@
                         $affichage = "bloc";
                         break;
                 }
+
+                $difficulte = $_POST["difficulte"];
             }
         ?>
 
@@ -40,7 +43,7 @@
                     // affichage si bloc
                     if(strcmp($affichage, "bloc")==0){
                         $questions = get_quizz_questions($_GET['id']);
-                        affichageQuizBloc($questions);
+                        affichageQuizBloc($questions, $difficulte);
                     }
 
                     // affichage si progressif

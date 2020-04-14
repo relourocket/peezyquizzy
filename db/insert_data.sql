@@ -126,7 +126,7 @@ INSERT INTO belongs VALUES (10, 50);
 INSERT INTO belongs VALUES (10, 51);
 INSERT INTO belongs VALUES (10, 52);
 
-INSERT INTO quizz VALUES (0, 1, "Quizz de culture générale", 10, "Testez votre culture générale avec ce quizz !", 1, 1);
+INSERT INTO quizz VALUES (0, 1, "Quizz de culture générale", 10, "Testez votre culture générale avec ce quizz !",  1);
 
 INSERT INTO contain VALUES (1, 1, 1);
 INSERT INTO contain VALUES (1, 2, 2);
@@ -142,4 +142,3 @@ INSERT INTO contain VALUES (1, 10, 10);
 INSERT INTO users VALUES (0, "agass", "motdepasse", true);
 INSERT INTO users VALUES (0, "aparize", "motdepasse", true);
 INSERT INTO users VALUES (0, "gdupont", "123456789", false);
-

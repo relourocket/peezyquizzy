@@ -167,26 +167,26 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
     // affiche les questions et réponses d'un quiz page par page
 
     $questions = get_quizz_questions($idQuiz);
-    $idQuestion = $questions[$numQuestion][7];
+    // var_dump($questions);
+    $idQuestion = $questions[$numQuestion][6];
     $answers = get_answers($idQuestion);
 
-    $enonceQuestion = $questions[$numQuestion][9];
-    $typeQuestion = $questions[$numQuestion][8];
+    $enonceQuestion = $questions[$numQuestion][8];
+    $typeQuestion = $questions[$numQuestion][7];
     $numLabel = $numQuestion + 1;
     $numNextQuestion = $numQuestion + 1;
 
     $nbRep;
-    switch ($questions[$numQuestion][5]){
-        case 1:
-            $difficulte = "facile";
+    switch($_POST["difficulte"]){
+        case "facile":
             $nbRep = 3;
             break;
-        case 2:
-            $difficulte = "moyen";
+
+        case "moyen":
             $nbRep = 5;
             break;
-        case 3:
-            $difficulte = "difficile";
+
+        case "difficile":
             $nbRep = 8;
             break;
     }
@@ -236,33 +236,18 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
     }
 }
 
-function affichageQuizBloc($questions){
+function affichageQuizBloc($questions, $difficulte){
     // affiche toutes les questions et réponses d'un quiz sur la même page html
 
     $indexRadio = 0; //index pour répertorier les radios correctement
     $nbRep;
 
     foreach ($questions as $q) {
-        $idQuestion = $q[7];
-
-        switch ($q[5]){
-            case 1:
-                $difficulte = "facile";
-                $nbRep = 3;
-                break;
-            case 2:
-                $difficulte = "moyen";
-                $nbRep = 5;
-                break;
-            case 3:
-                $difficulte = "difficile";
-                $nbRep = 8;
-                break;
-        }
+        $idQuestion = $q[6];
 
         $answers = get_answers($idQuestion);
-        $numeroQuestion = $q[12];
-        $enonceQuestion = $q[9];
+        $numeroQuestion = $q[11];
+        $enonceQuestion = $q[8];
 
         echo "<form method='post' action='./score.php' class='quizForm'>";
         echo "<label class='question' for='question" .$numeroQuestion ."'> <span class='purple_title'>" .  $numeroQuestion . ". </span>" . $enonceQuestion . "</label><br>";
@@ -285,7 +270,8 @@ function affichageQuizBloc($questions){
         }
     }
 
-    echo "<input type='hidden' name='idquizz' value='" .$_GET["id"] ."'>";
+    echo "<input type='hidden' name='idquizz' value='{$_GET["id"]} '>";
+    echo "<input type='hidden' name='difficulte' value='{$_POST["difficulte"]}'>";
 }
 
 function pickRandomAnswer($answers, $nbRep){

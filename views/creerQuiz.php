@@ -25,7 +25,6 @@
         <div class="flex_column_div">
             <h1>Créer un Quiz</h1>
 
-            <!-- <form method="post" action="./accueilAdmin.php" onsubmit="checkForm()" enctype="multipart/form-data"> -->
             <form method="post" action="./confirmationCreation.php" onsubmit="return checkForm()" enctype="multipart/form-data">
 
                 <!-- informations sur le quizz -->
@@ -65,17 +64,15 @@
                 <p>Les questions de votre nouveau quiz :</p>
                 <div id="addQuestion"></div>
 
-                <button  id="addQuestionBtn" class="btn btn_form purple" type="button" onclick="insertQuestion()">Ajouter une question</button>
+                <script type="text/javascript">
+                    let i;
+                    for(i =0; i < 10; i++){
+                        insertQuestion();
+                    }
 
-                <!-- difficulté -->
-                <div class="form-group row">
-                    <label for ="difficulte" class="col-sm-5">Difficulté <span class="purple_title">*</span></label>
-                    <select class="form-control col-sm-7" name="difficulte" id="difficulte">
-                        <option value="facile" selected>Facile</option>
-                        <option value="moyen">Moyen</option>
-                        <option value="difficile">Difficile</option>
-                    </select>
-                </div>
+                </script>
+
+                <button  id="addQuestionBtn" class="btn btn_form purple" type="button" onclick="insertQuestion()">Ajouter une question</button>
 
                 <!-- sélection affichage -->
                 <div class="form-group row">

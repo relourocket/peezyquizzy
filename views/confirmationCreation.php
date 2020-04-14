@@ -12,6 +12,7 @@
           checkConnection();
           checkAdmin();
 
+          // var_dump($_POST);
           $ok = false;
           $typeSave;
           if(isset($_POST["questionSeule"])&& isset($_POST["enonceQ0"]) && isset($_POST["typeQuestionQ0"])){
