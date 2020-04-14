@@ -74,16 +74,6 @@
 
                 <button  id="addQuestionBtn" class="btn btn_form purple" type="button" onclick="insertQuestion()">Ajouter une question</button>
 
-                <!-- difficulté -->
-                <div class="form-group row">
-                    <label for ="difficulte" class="col-sm-5">Difficulté <span class="purple_title">*</span></label>
-                    <select class="form-control col-sm-7" name="difficulte" id="difficulte">
-                        <option value="facile" selected>Facile</option>
-                        <option value="moyen">Moyen</option>
-                        <option value="difficile">Difficile</option>
-                    </select>
-                </div>
-
                 <!-- sélection affichage -->
                 <div class="form-group row">
                     <p class="col-sm-4">Affichage : <span class="purple_title">*</span></p>

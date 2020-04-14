@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS quizz (
     quizz_titre VARCHAR(150) NOT NULL,
     quizz_nbquestions INTEGER NOT NULL,
     quizz_description VARCHAR(300) NOT NULL,
-    quizz_difficulte INTEGER NOT NULL, # 1 pur facile, 2 pour moyen, 3 pour difficile
     quizz_affichage INTEGER NOT NULL, #1 pour affichage entier, 2 pour affichage question par question
     FOREIGN KEY (quizz_theme) REFERENCES theme(theme_id)
 );
@@ -37,6 +36,7 @@ CREATE TABLE IF NOT EXISTS score (
     score_user INTEGER NOT NULL,
     score_quizz INTEGER NOT NULL,
     score_points INTEGER NOT NULL,
+    score_difficulte VARCHAR(9) NOT NULL,
     FOREIGN KEY (score_user) REFERENCES users(user_id),
     FOREIGN KEY (score_quizz) REFERENCES quizz(quizz_id)
 );

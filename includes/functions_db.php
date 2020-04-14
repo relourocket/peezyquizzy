@@ -304,7 +304,12 @@ function get_score ($answers) {
 
         // on trie les clés par ordre croissant pour comparer les questions/reponses
         ksort($answers);
-        unset($answers["idquizz"]); //unset pour éviter de gérer l'id du quiz dans la recherche
+
+        //unset pour éviter de gérer ces paramètres dans la recherche de bonne réponse
+        // la recherche s'effectue grâce à une correcpondance entre les rep données et les rep de la bdd
+        unset($answers["idquizz"]);
+        unset($answers["difficulte"]);
+        unset($answers["numQuestion"]);
 
         foreach ($answers as $answer) {
             if ($i < count($answers)) {
@@ -341,11 +346,11 @@ function get_user_id ($pseudo) {
     }
 }
 
-function save_score ($points, $quizzid, $pseudo) {
+function save_score ($points, $quizzid, $pseudo, $difficulte) {
     $sql = connect_db();
     if ($sql != null) {
-        $stmt = $sql->prepare("INSERT INTO score VALUES (0, ?, ?, ?)");
-        $stmt->bind_param("iii", $userid, intval($quizzid), $points);
+        $stmt = $sql->prepare("INSERT INTO score VALUES (0, ?, ?, ?, ?)");
+        $stmt->bind_param("iiis", $userid, intval($quizzid), $points, $difficulte);
         $userid = get_user_id($pseudo)[0][0];
         $stmt->execute();
         $stmt->close();
@@ -433,40 +438,81 @@ function saveAllQuestions($data){
     // questionnaire auquel elles appartiennent
 
     // on obtient toutes les questions du quiz
-    $regexQuestion = "#^typeQuestionQ[0-9]+$#";
+    // l'affectation de la regex dépend de si on enregistre une question seule
+    // ou si c'est une question d'un quiz
+    $regexQuestion;
     $questions = array();
-    foreach($data as $key => $val){
-        if(preg_match($regexQuestion, $key)){
-            array_push($questions, substr($key, 12));
+
+    if(isset($_POST["questionSeule"])){
+        $regexQuestion = "#^typeQuestionQ[0-9]+$#";
+        foreach($data as $key => $val){
+            if(preg_match($regexQuestion, $key)){
+                array_push($questions, substr($key,12));
+            }
+        }
+    }
+    else{
+        $regexQuestion = "#^Q[0-9]+$#";
+        foreach($data as $key => $val){
+            if(preg_match($regexQuestion, $key)){
+                array_push($questions, $key);
+            }
         }
     }
 
     $numeroQuestion = 1; // indice pour la sauvegarde dans la table contain
 
     foreach($questions as $q){
-        $enonce = $data["enonce{$q}"];
-        $type = $data["typeQuestion{$q}"];
+        if(isset($_POST["questionSeule"])){
+            $enonce = $data["enonce{$q}"];
+            $type = $data["typeQuestion{$q}"];
 
-        switch($type){
-            case "libre":
-                $rep = $data["repLibre{$q}"];
-                saveQuestionLibre($enonce, $type, $rep);
-                break;
+            switch($type){
+                case "libre":
+                    $rep = $data["repLibre{$q}"];
+                    saveQuestionLibre($enonce, $type, $rep);
+                    break;
 
-            case "qcm":
-                saveQcm($enonce, $data["rep1{$q}"], $data["rep2{$q}"],
-                        $data["rep3{$q}"], $data["rep4{$q}"], $data["rep5{$q}"],
-                        $data["rep6{$q}"], $data["rep7{$q}"], $data["rep8{$q}"],
-                        $data["juste{$q}"]);
-                break;
+                case "qcm":
+                    saveQcm($enonce, $data["rep1{$q}"], $data["rep2{$q}"],
+                            $data["rep3{$q}"], $data["rep4{$q}"], $data["rep5{$q}"],
+                            $data["rep6{$q}"], $data["rep7{$q}"], $data["rep8{$q}"],
+                            $data["juste{$q}"]);
+                    break;
+            }
         }
 
-        if(!isset($_POST["questionSeule"])){
-            linkQuestionToQuiz($numeroQuestion);
+        elseif(strcmp($data[$q], "nouveau")==0){
+            $enonce = $data["enonce{$q}"];
+            $type = $data["typeQuestion{$q}"];
 
+            switch($type){
+                case "libre":
+                    $rep = $data["repLibre{$q}"];
+                    saveQuestionLibre($enonce, $type, $rep);
+                    break;
+
+                case "qcm":
+                    saveQcm($enonce, $data["rep1{$q}"], $data["rep2{$q}"],
+                            $data["rep3{$q}"], $data["rep4{$q}"], $data["rep5{$q}"],
+                            $data["rep6{$q}"], $data["rep7{$q}"], $data["rep8{$q}"],
+                            $data["juste{$q}"]);
+                    break;
+            }
+
+            if(!isset($_POST["questionSeule"])){
+                linkNewQuestionToQuiz($numeroQuestion);
+            }
+        }
+
+        else{
+            if(!isset($_POST["questionSeule"])){
+                linkExistingQuestionToQuiz($data[$q], $numeroQuestion);
+            }
         }
         $numeroQuestion++;
     }
+
 }
 
 function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm8, $juste) {
@@ -476,7 +522,7 @@ function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm
     $sql = connect_db();
     if ($sql != null) {
 
-        $type = "qcm";
+        $type = "radio";
 
         // Insertion question
         $stmt = $sql->prepare("INSERT INTO question VALUES (0, ?, ?)");
@@ -621,13 +667,12 @@ function saveQuiz($data){
     $quizTitre = $data["titre"];
     $nbQuestion = getNbQuestion($data);
     $quizDescr = $data["description"];
-    $difficulte = convertDifficulte($data["difficulte"]);
     $affichage = convertAffichage($data["affichage"]); // 0 pour bloc, 1 pour question par question
 
     $sql = connect_db();
-    $stmt = $sql->prepare("INSERT INTO quizz VALUES(0, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isisii", $themeId, $quizTitre, $nbQuestion,
-                      $quizDescr, $difficulte, $affichage);
+    $stmt = $sql->prepare("INSERT INTO quizz VALUES(0, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isisi", $themeId, $quizTitre, $nbQuestion,
+                      $quizDescr, $affichage);
     $stmt->execute();
 
     // sauvegarde des questions et réponses
@@ -686,7 +731,7 @@ function saveTheme($data){
     }
 }
 
-function linkQuestionToQuiz($numeroQuestion){
+function linkNewQuestionToQuiz($numeroQuestion){
     // lie la dernière question insérée avec le dernier quiz inséré
 
     $sql = connect_db();
@@ -705,6 +750,34 @@ function linkQuestionToQuiz($numeroQuestion){
     $idQuestion = $res->fetch_all();
     $idQuestion = $idQuestion[0][0];
 
+    // lier la question et le quiz
+    $stmt = $sql->prepare("INSERT INTO contain VALUES(?, ?, ?)");
+    $stmt->bind_param("iii", $idQuiz, $idQuestion, $numeroQuestion);
+    $stmt->execute();
+
+    $stmt->close();
+}
+
+function linkExistingQuestionToQuiz($idQuestion, $numeroQuestion){
+    // lie la question dont l'id est $idQuestion avec le dernier quiz ajouté
+
+    $sql = connect_db();
+
+    // get le dernier quiz ajouté
+    $stmt = $sql->prepare("SELECT max(quizz_id) from quizz");
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $idQuiz = $res->fetch_all();
+    $idQuiz = $idQuiz[0][0];
+    echo $idQuiz;
+    // get la dernière question ajoutée
+    $stmt = $sql->prepare("SELECT question_id from question where question_id=?");
+    $stmt->bind_param("i", $idQuestion);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $idQuestion = $res->fetch_all();
+    $idQuestion = $idQuestion[0][0];
+    echo $idQuestion;
     // lier la question et le quiz
     $stmt = $sql->prepare("INSERT INTO contain VALUES(?, ?, ?)");
     $stmt->bind_param("iii", $idQuiz, $idQuestion, $numeroQuestion);
