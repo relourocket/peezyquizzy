@@ -116,7 +116,7 @@ body {
     margin-top: 20px;
     align-items: center;
     text-decoration: none;
-    font-size: 3em;
+    font-size: 2em;
     text-align: center;
 }
 
@@ -421,14 +421,18 @@ body {
     display: flex;
     flex-direction: row;
     text-decoration: none;
+    justify-content: space-around;
     color: white;
     margin-bottom: 1em;
 }
 
 .nom_quiz {
-    width: 80%;
+    width: 50%;
 }
 
+.difficulte{
+    font-size: 1em;
+}
 /* =================================== SCORE.PHP ===================================*/
 
 td {
