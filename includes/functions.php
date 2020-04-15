@@ -1,7 +1,8 @@
 <?php
+/*
+* vérifie si l'utilisateur est connecté. Renvoie true si c'est le cas, le redirige à l'accueil si non.
+*/
 function checkConnection(){
-    // vérifie si l'utilisateur est connecté et le redirige à l'accueil si non
-
     if(isset($_SESSION) && !isset($_SESSION["login"])){
         header("Location: ./index.php");
     }
@@ -10,6 +11,9 @@ function checkConnection(){
     }
 }
 
+/*
+* vérifie si l'utilisateur est un admin. Renvoie true si c'est le cas, le redirige à l'accueil si non.
+*/
 function checkAdmin(){
     if(isset($_SESSION) && isset($_SESSION["login"]) && isset($_SESSION["isAdmin"])){
         if($_SESSION["isAdmin"] != true){
@@ -21,7 +25,11 @@ function checkAdmin(){
     }
 }
 
-
+/*
+* vérifie si les deux mots de passe rentrés sont les mêmes. Renvoie true si c'est le cas, false sinon
+* @param $password le mot de passe rentré lors de l'inscription
+* @param $confirm_password la confirmation du mot de passe
+*/
 function check_confirm_password ($password, $confirm_password) {
     if (strcmp($password, $confirm_password) == 0) {
         return true;
@@ -31,6 +39,9 @@ function check_confirm_password ($password, $confirm_password) {
     }
 }
 
+/*
+* récupère tous les thèmes existant en bdd et les ajoute au DOM
+*/
 function insert_theme_options(){
     $themes = get_all_themes();
     foreach ($themes as $singleTheme) {
@@ -39,11 +50,13 @@ function insert_theme_options(){
     }
 }
 
+/*
+* Déplace l'image uploadée dans le répertoire images. Renvoie le path de l'image
+* déplacée si le transfert est effectué. Renvoie un chemin vers une image par défaut
+* si l'upload échoue.
+* @return $imgName le path de l'image uploadée
+*/
 function upload_img(){
-    // Déplace l'image uploadée dans le répertoire images
-    // renvoie le path de l'image déplacée si le transfert est effectué
-    // renvoie un chemin vers une image par défaut si ça échoue
-
     if(isset($_FILES) && $_FILES["imgTheme"]["error"]==0){
         $extAllowed = array("jpeg", "jpg", "png");
         $path = "../images/";
@@ -69,6 +82,11 @@ function upload_img(){
     }
 }
 
+/*
+* check si le nom de fichier existe déjà et le modifie le cas échéant par récursivité.
+* @param $file le path de l'image uploadée lors de la création du thème
+* @return $fileName le path modifié de l'image uploadée si un path identique existe déjà
+*/
 function checkFileName($file){
     // check si le nom de fichier existe déjà et le modifie le cas échéant
     // par récursivité
@@ -117,10 +135,14 @@ function checkFileName($file){
 
 }
 
+/*
+* Détermine le nombre de question à partir des champs contenus dans le $_POST
+* pour la sauvegarde du quiz en bdd.
+* @param $data la variable $_POST reçu après la création d'un quiz
+* @return $questionCount le nombre de questions utilisées dans le quiz
+*/
 function getNbQuestion($data){
-    // détermine le nombre de question à partir des champs contenus dans le $_POST
-
-    $regex = "#^enonceQ[0-9]+$#";
+    $regex = "#^Q[0-9]+$#";
     $questionCount = 0;
 
     foreach(array_keys($data) as $key){
@@ -132,6 +154,11 @@ function getNbQuestion($data){
     return $questionCount;
 }
 
+/*
+* Convertit la valeur de l'affichage en int pour la sauvegarder en bddd
+* @param $affichage la valeur de l'affichage du quiz
+* @return un scalaire permettant d'identifier le type d'affichage. 1 correspond à progressif, 0 à bloc.
+*/
 function convertAffichage($affichage){
     // renvoie 1 si question par question, 0 si bloc
     switch ($affichage) {
@@ -145,6 +172,11 @@ function convertAffichage($affichage){
     }
 }
 
+/*
+* Convertit la valeur de l'affichage en int pour la sauvegarder en bddd
+* @param $affichage la valeur de l'affichage du quiz
+* @return un scalaire permettant d'identifier le type d'affichage. 1 correspond à progressif, 0 à bloc.
+*/
 function convertDifficulte($difficulte){
     // convertit la valeur de difficulté en int pour insérer en bdd
 
@@ -163,6 +195,11 @@ function convertDifficulte($difficulte){
     }
 }
 
+/*
+* Affiche les questions du quiz page après page
+* @param $idQuiz l'id du quiz effectué
+* @param $numQuestion le numéro de la question à la n-ième page
+*/
 function affichageQuizProgressif($idQuiz, $numQuestion){
     // affiche les questions et réponses d'un quiz page par page
 
@@ -237,6 +274,11 @@ function affichageQuizProgressif($idQuiz, $numQuestion){
     }
 }
 
+/*
+* Affiche toutes les questions d'un quiz sur une même page html
+* @param $questions l'ensemble des questions du quiz
+* @param $difficulte la difficulté du quiz
+*/
 function affichageQuizBloc($questions, $difficulte){
     // affiche toutes les questions et réponses d'un quiz sur la même page html
 
@@ -288,6 +330,12 @@ function affichageQuizBloc($questions, $difficulte){
     echo "<input type='hidden' name='difficulte' value='{$_POST["difficulte"]}'>";
 }
 
+/*
+* Effectue un tirage aléatoire de l'ordre des réponses pour une question donnée
+* @param $answers les réponses de la question
+* @param $nbRep le nombre de réponses pour la question donnée
+* @return $indexUtilise un array d'index randomisé 
+*/
 function pickRandomAnswer($answers, $nbRep){
     // renvoie les indices des réponses utilisées dans un ordre aléatoire
 
