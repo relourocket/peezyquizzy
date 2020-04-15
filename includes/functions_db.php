@@ -769,7 +769,7 @@ function linkExistingQuestionToQuiz($idQuestion, $numeroQuestion){
     $res = $stmt->get_result();
     $idQuiz = $res->fetch_all();
     $idQuiz = $idQuiz[0][0];
-    echo $idQuiz;
+
     // get la dernière question ajoutée
     $stmt = $sql->prepare("SELECT question_id from question where question_id=?");
     $stmt->bind_param("i", $idQuestion);
@@ -777,7 +777,7 @@ function linkExistingQuestionToQuiz($idQuestion, $numeroQuestion){
     $res = $stmt->get_result();
     $idQuestion = $res->fetch_all();
     $idQuestion = $idQuestion[0][0];
-    echo $idQuestion;
+
     // lier la question et le quiz
     $stmt = $sql->prepare("INSERT INTO contain VALUES(?, ?, ?)");
     $stmt->bind_param("iii", $idQuiz, $idQuestion, $numeroQuestion);

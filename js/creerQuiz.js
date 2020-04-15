@@ -1,7 +1,8 @@
+/*
+* Renvoie un div contenant les champs pour créer un thème de quiz
+* @return createThemeDiv un div contenant l'ensemble des éléments nécessaires pour créer un thème
+*/
 function insertCreateTheme(){
-    //renvoie un div contenant les champs pour créer un thème
-
-
     // conteneur de la création de thème
     let createThemeDiv = document.createElement("div");
     createThemeDiv.id = "createTheme";
@@ -68,10 +69,11 @@ function insertCreateTheme(){
     return createThemeDiv;
 }
 
+/*
+* insert un module de création de question. L'utilisateur peut choisir entre
+* prendre une question déjà existante ou en créer une.
+*/
 function insertQuestion(){
-    // insert un module de création de question. L'utilisateur peut choisir entre
-    // prendre une question déjà existante ou en créer une.
-
     let questionDiv = $("#addQuestion");
     let newQuestionDiv = document.createElement("div");
     newQuestionDiv.setAttribute("class", "question");
@@ -138,13 +140,17 @@ function insertQuestion(){
     removeBtn.setAttribute("id", "removeBtn".concat(questionID));
     removeBtn.setAttribute("onclick", `removeQuestion('${questionID}')`);
 
-    //on met un type button pour empêcher de submit à l'appui
+    //on met un type button pour empêcher de submit lorsque l'on clique dessus
     removeBtn.setAttribute("type", "button");
 
     //append le boutton à la question
     questionDiv.append(removeBtn);
 }
 
+/*
+* Fonction onchange vérifiant si l'utilisateur veut créer une question n'existant pas encore,
+* et modifie le DOM en ajoutant ou supprimant les champs pour créer une question personnalisée
+*/
 function changeCreateQuestion(questionID){
     // vérifie si l'utilisateur veut créer une nouvelle question et modifie
     // le DOM en ajoutant ou en supprimant la possibilité de créer une question
@@ -161,9 +167,10 @@ function changeCreateQuestion(questionID){
 
 }
 
+/*
+* Insert les éléments nécessaires pour créer une question personnalisée
+*/
 function insertCreateQuestion(questionID){
-    // insert un emplacement pour créer une nouvelle question
-
     let createQuestionDiv = document.createElement("div");
     createQuestionDiv.id = `createQuestion${questionID}`;
 
@@ -171,13 +178,12 @@ function insertCreateQuestion(questionID){
     insertTypeQuestionSelection(createQuestionDiv, questionID);
 
     $(`#${questionID}`).append(createQuestionDiv);
-
-
 }
 
+/*
+* Insert les champs pour créer un énoncé de question dans le DOM
+*/
 function insertEnonce(createQuestionDiv, questionID){
-    // insert l'énoncé de la nouvelle question
-
     let enonce = document.createElement("div");
     enonce.className = "form-group row";
 
@@ -200,6 +206,9 @@ function insertEnonce(createQuestionDiv, questionID){
     createQuestionDiv.append(enonce);
 }
 
+/*
+* Insert un élément de type select pour choisir le type de la question créée
+*/
 function insertTypeQuestionSelection(newQuestionDiv, questionID){
     let questionType = document.createElement("div");
     questionType.className = "form-group row";
@@ -239,8 +248,11 @@ function insertTypeQuestionSelection(newQuestionDiv, questionID){
     newQuestionDiv.append(questionType);
 }
 
+/*
+* Renvoie un ensemble d'éléments pour créer une réponse libre pour une question
+* @return libre un div contenant des éléments label et input pour créer une réponse textuelle
+*/
 function insertLibre(questionID){
-    // return un div contenant une réponse libre
     let libre = document.createElement("div");
     libre.id = `libre${questionID}`;
 
@@ -270,6 +282,10 @@ function insertLibre(questionID){
     return libre;
 }
 
+/*
+* Renvoie un div contenant les champs nécessaires pour créer les réponses d'un QCM
+* @return qcm un div contenant l'ensemble des éléments pour créer les réponses d'un QCM
+*/
 function insertQcm(questionID, nbRep){
     // insert un emplacement pour les réponses d'un QCM
 
@@ -283,6 +299,12 @@ function insertQcm(questionID, nbRep){
     return qcm;
 }
 
+/*
+* Insert les input et label d'une réponse d'un QCM
+* @param qcmDiv le div dans lequel insérer les éléments pour la création de réponse
+* @param questionID une string du type "Q0" indiquant l'id de la question
+* @param indiceRep le numéro de la réponse dans la question donnée
+*/
 function insertQcmRep(qcmDiv, questionID, indiceRep){
     let repQCM = document.createElement("div");
     repQCM.className = "repQcm";
@@ -332,12 +354,16 @@ function insertQcmRep(qcmDiv, questionID, indiceRep){
     justeDiv.append(justeLabel);
     justeDiv.append(justeInput);
 
-
     repQCM.append(qcmRepDiv);
     repQCM.append(justeDiv);
     qcmDiv.append(repQCM);
 }
 
+/*
+* Fonction onclick retirant du DOM la question associée au bouton activé.
+* Le conteneur retiré est identifié grâce à son id contenant à la fin un string du type "Q0".
+* @param questionID l'id de la question à enlever du DOM. Par exemple "Q0" ou "Q10".
+*/
 function removeQuestion(questionID){
         $("#".concat(questionID)).remove();
         $("#removeBtn".concat(questionID)).remove();
@@ -345,6 +371,10 @@ function removeQuestion(questionID){
         changeQuestionsElements();
 }
 
+/*
+* Fonction appelée lors de la suppression d'une question dans le DOM. Change tous les id des éléments
+* terminant par un string du type "Q0" pour assurer la cohérence dans les numéros de question.
+*/
 function changeQuestionsElements(){
     // change les attributs des éléments pour avoir une continuité dans les questions
 
@@ -393,6 +423,11 @@ function changeQuestionsElements(){
 
 }
 
+/*
+* Au onchange du select pour choisir le type de question voulu, met à jour le DOM en ajoutant
+* ou supprimant les éléments correspondant au type de question choisi
+* @param questionID une string du type "Q0" indiquant l'id de la question
+*/
 function selectType(questionID){
     let type = $("#typeQuestion".concat(questionID));
 
@@ -415,6 +450,10 @@ function selectType(questionID){
     }
 }
 
+/*
+* Insert ou supprime dans le DOM les éléments nécessaires pour créer un nouveau thème personnalisé.
+* La fonction est appelé au onchange d'un select.
+*/
 function selectTheme(){
     let themeValue = $("#themeSelect").val();
 
@@ -427,6 +466,9 @@ function selectTheme(){
     }
 }
 
+/*
+* Fonction de vérification de différents éléments au niveau des inputs lors de la création d'un quiz
+*/
 function checkForm(){
     // vérifie que tout est ok dans le form pour la validation
     let isOk = true;
