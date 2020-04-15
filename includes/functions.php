@@ -242,6 +242,19 @@ function affichageQuizBloc($questions, $difficulte){
 
     $indexRadio = 0; //index pour répertorier les radios correctement
     $nbRep;
+    switch($_POST["difficulte"]){
+        case "facile":
+            $nbRep = 3;
+            break;
+
+        case "moyen":
+            $nbRep = 5;
+            break;
+
+        case "difficile":
+            $nbRep = 8;
+            break;
+    }
 
     foreach ($questions as $q) {
         $idQuestion = $q[6];

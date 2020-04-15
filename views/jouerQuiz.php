@@ -8,7 +8,6 @@
         require_once "../includes/functions_db.php";
         require_once "../includes/functions.php";
 
-        var_dump($_POST);
         checkConnection();
     ?>
 
