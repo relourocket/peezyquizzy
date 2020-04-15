@@ -1,5 +1,7 @@
+/* Insertion d'un thème culture générale dnas la table theme */
 INSERT INTO theme VALUES (0, "Culture générale", "Testez votre culture générale !", "/images/cultureg.jpg");
 
+/* Insertion de 10 questions dans la table question */
 INSERT INTO question VALUES (0, "libre", "Qui raconte les aventures de Sherlock Holmes ?");
 INSERT INTO question VALUES (0, "radio", "Qui fût le quarantième président des Etats-Unis ?");
 INSERT INTO question VALUES (0, "radio", "Quel est le plus long fleuve en Europe occidentale ?");
@@ -11,6 +13,7 @@ INSERT INTO question VALUES (0, "libre", "Quelle ville a construit le premier m�
 INSERT INTO question VALUES (0, "radio", "De quoi se nourrit le manchot ?");
 INSERT INTO question VALUES (0, "radio", "Combien y a t-il de joueurs sur le terrain dans une équipe de base-ball ?");
 
+/* Insertion des réponses correspondant aux 10 questions précédentes dans la table answer */
 INSERT INTO answer VALUES (0, "Watson", true);
 
 INSERT INTO answer VALUES (0, "George Washington", false);
@@ -73,6 +76,7 @@ INSERT INTO answer VALUES (0, "14", false);
 INSERT INTO answer VALUES (0, "6", false);
 INSERT INTO answer VALUES (0, "21", false);
 
+/* Insertion des données liant les réponses à leur question dans la table belongs */
 INSERT INTO belongs VALUES (1,1);
 INSERT INTO belongs VALUES (2,2);
 INSERT INTO belongs VALUES (2,3);
@@ -126,8 +130,10 @@ INSERT INTO belongs VALUES (10, 50);
 INSERT INTO belongs VALUES (10, 51);
 INSERT INTO belongs VALUES (10, 52);
 
+/* Insertion d'un quiz dans la table quizz */
 INSERT INTO quizz VALUES (0, 1, "Quizz de culture générale", 10, "Testez votre culture générale avec ce quizz !",  1);
 
+/* Insertion des données liant les question à leur quiz dans la table contain */
 INSERT INTO contain VALUES (1, 1, 1);
 INSERT INTO contain VALUES (1, 2, 2);
 INSERT INTO contain VALUES (1, 3, 3);
@@ -139,6 +145,7 @@ INSERT INTO contain VALUES (1, 8, 8);
 INSERT INTO contain VALUES (1, 9, 9);
 INSERT INTO contain VALUES (1, 10, 10);
 
+/* Insertion de 3 utilisateurs dans la table users */
 INSERT INTO users VALUES (0, "agass", "motdepasse", true);
 INSERT INTO users VALUES (0, "aparize", "motdepasse", true);
 INSERT INTO users VALUES (0, "gdupont", "123456789", false);
