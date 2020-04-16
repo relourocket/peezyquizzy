@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Etabli la connection avec la base de données
+ * @return mysqli l'objet de connection
+ */
 function connect_db () {
     $mysqli = new mysqli("localhost", "root", "", "myquizz");
     $mysqli->set_charset("utf8");
@@ -12,6 +16,12 @@ function connect_db () {
     }
 }
 
+/**
+ * Vérifie que le pseudo et le mot de passe entrés correspondent à un compte existant
+ * @param $login le pseudo entré
+ * @param $password le mot de passe entré
+ * @return true si les logs sont corrects, false sinon
+ */
 function check_logs($login, $password) {
     $sql = connect_db();
     if ($sql != null) {
@@ -36,6 +46,11 @@ function check_logs($login, $password) {
     }
 }
 
+/**
+ * Vérifie que le pseudo entré existe dans la base de données
+ * @param $login Le pseudo entré
+ * @return true si le pseudo existe, false sinon
+ */
 function pseudo_exists ($login) {
     $sql = connect_db();
     if ($sql != null) {
@@ -59,6 +74,11 @@ function pseudo_exists ($login) {
     }
 }
 
+/**
+ * Insère dans la BDD les informations du nouveau compte utilisateur
+ * @param $login Le pseudo du nouvel utilisateur
+ * @param $password Le mot de passe du nouvel utilisateur
+ */
 function signin ($login, $password) {
     $sql = connect_db();
     if ($sql != null) {
@@ -73,6 +93,11 @@ function signin ($login, $password) {
     }
 }
 
+/**
+ * Vérifie si un utilisateur est administrateur
+ * @param $login Le pseudo de l'utilisateur
+ * @return true si l'utilisateur est un administrateur, false sinon
+ */
 function is_admin($login){
     // renvoie true si l'utilisateur est un admin, false sinon
     // la recherche s'effectue sur la base du login de l'utilisateur
@@ -100,6 +125,10 @@ function is_admin($login){
 
 }
 
+/**
+ * Récupère tous les thèmes existants dans la base de données
+ * @return les thèmes existants
+ */
 function get_all_themes () {
     $sql = connect_db();
     if ($sql != null) {
@@ -117,6 +146,10 @@ function get_all_themes () {
     }
 }
 
+/**
+ * Récupère les noms de tous les thèmes de la BDD
+ * @return Les noms de tous les thèmes
+ */
 function get_all_themes_names () {
     // renvoie tous les noms de tous les themes
 
@@ -140,6 +173,11 @@ function get_all_themes_names () {
     }
 }
 
+/**
+ * Récupère les informations du quiz ayant l'id en paramètre
+ * @param $idQuiz l'id du quiz
+ * @return Les informations du quiz
+ */
 function get_quiz($idQuiz){
     $sql = connect_db();
     if($sql != null){
@@ -159,6 +197,11 @@ function get_quiz($idQuiz){
     }
 }
 
+/**
+ * Récupère tous les quiz sur le thème donné
+ * @param $themeid L'id du thème donné
+ * @return Les quiz du thème donné
+ */
 function get_all_quizz_per_theme ($themeid) {
     $sql = connect_db();
     if ($sql != null) {
@@ -178,6 +221,10 @@ function get_all_quizz_per_theme ($themeid) {
     }
 }
 
+/**
+ * Récupère tous les quiz existants dans la BDD
+ * @return Tous les quiz
+ */
 function get_all_quizz(){
     $sql = connect_db();
     if($sql!=null){
@@ -194,6 +241,11 @@ function get_all_quizz(){
     }
 }
 
+/**
+ * Récupère les informations d'un thème en fonction de son id
+ * @param $id L'id du thème
+ * @return Les informations du thème
+ */
 function get_theme_by_id($id){
     // renvoie un theme donné en fonction de son id
 
@@ -213,6 +265,10 @@ function get_theme_by_id($id){
     }
 }
 
+/**
+ * Récupère toutes les questions présentes dans la BDD
+ * @return questions Toutes les questions de la BDD
+ */
 function get_all_questions(){
     $sql = connect_db();
     if($sql!=null){
@@ -227,6 +283,11 @@ function get_all_questions(){
     else die("pas de connexion possible");
 }
 
+/**
+ * Récupère toutes les questions d'un quiz donné
+ * @param $quizzid L'id du quiz donné
+ * @return questions Les questions du quiz donné
+ */
 function get_quizz_questions ($quizzid) {
     $sql = connect_db();
     if ($sql != null) {
@@ -246,6 +307,12 @@ function get_quizz_questions ($quizzid) {
     }
 }
 
+/**
+ * Récupère une question d'un quiz
+ * @param $idQuiz L'id du quiz
+ * @param $idQuestion L'id de la question
+ * @return question La question récupérée
+ */
 function get_quiz_question_by_id($idQuiz, $idQuestion){
     $sql = connect_db();
     if ($sql != null) {
@@ -266,6 +333,11 @@ function get_quiz_question_by_id($idQuiz, $idQuestion){
     }
 }
 
+/**
+ * Récupère les réponses d'une question
+ * @param $questionid La question dont on veut les réponses
+ * @return $answers Les réponses à la question
+ */
 function get_answers ($questionid) {
     $sql = connect_db();
     if ($sql != null) {
@@ -284,6 +356,12 @@ function get_answers ($questionid) {
         die("No database found...");
     }
 }
+
+/**
+ * Récupère le score et le score total possible
+ * @param $answers Les réponses au quiz
+ * @return Le score et le score total
+ */
 function get_score ($answers) {
     // renvoie dans un tableau le score du joueur et le score total possible
 
@@ -328,6 +406,11 @@ function get_score ($answers) {
     }
 }
 
+/**
+ * Récupère l'id d'un utilisateur grâce à son pseudo
+ * @param $pseudo Le pseudo du joueur
+ * @return L'id de l'utilisateur
+ */
 function get_user_id ($pseudo) {
     $sql = connect_db();
     if ($sql != null) {
@@ -346,6 +429,13 @@ function get_user_id ($pseudo) {
     }
 }
 
+/**
+ * Insère un nouveau score dans la BDD
+ * @param $points Le score réalisé (nombre de points)
+ * @param $quizzid L'id du quiz sur lequel à été effectué le score
+ * @param $pseudo Le pseudo du joueur qui a effectué le score
+ * @param $difficulte La difficulté du quiz
+ */
 function save_score ($points, $quizzid, $pseudo, $difficulte) {
     $sql = connect_db();
     if ($sql != null) {
@@ -359,6 +449,12 @@ function save_score ($points, $quizzid, $pseudo, $difficulte) {
     }
 }
 
+/**
+ * Récupère le meilleur score d'un utilisateur sur un quiz
+ * @param $user L'id de l'utilisateur
+ * @param $idQuiz L'id du quiz
+ * @return Le meilleur score sur le quiz
+ */
 function get_best_score ($user, $idQuiz) {
     $sql = connect_db();
     if ($sql != null) {
@@ -378,6 +474,11 @@ function get_best_score ($user, $idQuiz) {
     }
 }
 
+/**
+ * Récupère tous les scores d'un utilisateur
+ * @param $user Le pseudo de l'utilisateur
+ * @return Tous les scores de l'utilisateur
+ */
 function get_all_scores_by_user ($user) {
     $sql = connect_db();
     if ($sql != null) {
@@ -397,6 +498,10 @@ function get_all_scores_by_user ($user) {
     }
 }
 
+/**
+ * Récupère tous les utilisateurs de la base de données
+ * @return Tous les utilisateurs
+ */
 function get_all_users(){
     $sql = connect_db();
     if($sql!=null){
@@ -413,6 +518,11 @@ function get_all_users(){
     }
 }
 
+/**
+ * Met à jour le statut d'un utilisateur (administrateur ou non)
+ * @param $id L'id de l'uitlisateur dont le statut doit être mis à jour
+ * @param $status Le nouveau statut
+ */
 function update_user_status($id, $status){
     //affectation nouvelle valeur du statut
     if($status==1) $newStatus = 0;
@@ -433,6 +543,10 @@ function update_user_status($id, $status){
     }
 }
 
+/**
+ * Sauvegarde toutes les questions et les lie au questionnaire auquel elles appartiennent
+ * @param $data Les questions à sauvegarder
+ */
 function saveAllQuestions($data){
     // sauvegarde toutes les questions et les lie au
     // questionnaire auquel elles appartiennent
@@ -515,6 +629,19 @@ function saveAllQuestions($data){
 
 }
 
+/**
+ * Sauvegarde une question à choix multiple et les réponses qui lui sont associées
+ * @param $enonce L'énoncé de la question
+ * @param $qcm1 La première réponse
+ * @param $qcm2 La deuxième réponse
+ * @param $qcm3 La troisième réponse
+ * @param $qcm4 La quatrième réponse
+ * @param $qcm5 La cinquième réponse
+ * @param $qcm6 La sixième réponse
+ * @param $qcm7 La septième réponse
+ * @param $qcm8 La huitième réponse
+ * @param $juste La réponse juste
+ */
 function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm8, $juste) {
     // Sauvegarde une question de type QCM ainsi que toutes ses réponses
     // associées
@@ -608,6 +735,12 @@ function saveQcm ($enonce, $qcm1, $qcm2, $qcm3, $qcm4, $qcm5, $qcm6, $qcm7, $qcm
     }
 }
 
+/**
+ * Sauvegarde d'une question libre
+ * @param $enonce L'énoncé de la question
+ * @param $type Le type de la question
+ * @param $rep_libre La réponse
+ */
 function saveQuestionLibre ($enonce, $type, $rep_libre) {
     $sql = connect_db();
     if ($sql != null) {
@@ -652,6 +785,10 @@ function saveQuestionLibre ($enonce, $type, $rep_libre) {
     }
 }
 
+/**
+ * Sauvegarde d'un quiz
+ * @param $data Les informations et données qui concernent le quiz
+ */
 function saveQuiz($data){
     //sauvegarde en bdd le quizz, les questions et les réponses associées
 
@@ -681,6 +818,11 @@ function saveQuiz($data){
     $stmt->close();
 }
 
+/**
+ * Récupère l'id d'un thème grâce à son nom
+ * @param $themeName Le nom du thème
+ * @return L'id du thème
+ */
 function getThemeId($themeName){
     // récupère l'id du thème en fonction de son nom et de s'il est nouveau
 
@@ -701,6 +843,11 @@ function getThemeId($themeName){
     return $idTheme[0][0];
 }
 
+/**
+ * Sauvegarde d'un nouveau thème
+ * @param $data Les informations du nouveau thème
+ * @return true si le thème a pu être sauvegardé, false sinon
+ */
 function saveTheme($data){
     if(isset($data["nomTheme"]) && isset($data["descrTheme"]) && isset($_FILES["imgTheme"]["name"])){
         $allThemes = get_all_themes_names();
@@ -731,6 +878,10 @@ function saveTheme($data){
     }
 }
 
+/**
+ * Lie une question a un quiz
+ * @param $numeroQuestion Le numéro de la question
+ */
 function linkNewQuestionToQuiz($numeroQuestion){
     // lie la dernière question insérée avec le dernier quiz inséré
 
@@ -758,6 +909,11 @@ function linkNewQuestionToQuiz($numeroQuestion){
     $stmt->close();
 }
 
+/**
+ * Lie une question a un quiz
+ * @param $idQuestion L'id de la question
+ * @param $numeroQuestion Le numéro de la question
+ */
 function linkExistingQuestionToQuiz($idQuestion, $numeroQuestion){
     // lie la question dont l'id est $idQuestion avec le dernier quiz ajouté
 

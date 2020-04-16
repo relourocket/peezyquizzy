@@ -1,5 +1,6 @@
 <html>
     <body>
+    <!-- Affiche  un utilisateur -->
         <div class="user">
             <div class="identite">
                 <div class="pseudo">
@@ -14,7 +15,6 @@
                     ?>
                 </div>
             </div>
-
             <?php if ($person[3] == 1) { ?>
             <a class="nav nav-link btn_form changer purple" href="./changementUserStatus.php<?php echo "?id=" .$person[0] ."&status=" .$person[3]?>">Changer</a>
             <?php } else { ?>
